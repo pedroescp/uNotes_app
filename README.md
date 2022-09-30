@@ -2,59 +2,59 @@
 
 Banco de dados: 
  - Usuario
-  - Id
-  - Nickname
-  - Login
-  - Senha
-  - Email
-  - Avatar
-  - Telefone
-  - CargoId
-  - DataInclusao
+  * Id
+  * Nickname
+  * Login
+  * Senha
+  * Email
+  * Avatar
+  * Telefone
+  * CargoId
+  * DataInclusao
   
  - Cargo
-  - Id
-  - Nome
-  - Descricao
+  * Id
+  * Nome
+  * Descricao
   
  - Grupo
-  - Id
-  - Nome
+  * Id
+  * Nome
   
  - UsuarioGrupo
-  - Id
-  - UsuarioId
-  - GrupoId
-  - DataInclusao
-  - DataExclusao
+  * Id
+  * UsuarioId
+  * GrupoId
+  * DataInclusao
+  * DataExclusao
   
  - Notes
-  - Id
-  - Titulo
-  - Texto 10000
-  - CriadorId
-  - Lixeira bit
-  - Fixado bit
-  - DataInclusao
-  - DataAtualizacao
-  - UsuarioAtualizacaoId
-  - DocumentoId
+  * Id
+  * Titulo
+  * Texto 10000
+  * CriadorId
+  * Lixeira bit
+  * Fixado bit
+  * DataInclusao
+  * DataAtualizacao
+  * UsuarioAtualizacaoId
+  * DocumentoId
   
  - Colaboradores
-  - Id
-  - UsuarioId
-  - NotaId
-  - DocumentoId
-  - Status [Pendente, Aceito, Negado]
+  * Id
+  * UsuarioId
+  * NotaId
+  * DocumentoId
+  * Status [Pendente, Aceito, Negado]
   
  - Documento
-  - Id
-  - Titulo
-  - Texto 50000
-  - CriadorId
-  - Lixeira bit
-  - DataInclusao
-  - DataAtualizacao
-  - UsuarioAtualizacaoId
+  * Id
+  * Titulo
+  * Texto 50000
+  * CriadorId
+  * Lixeira bit
+  * DataInclusao
+  * DataAtualizacao
+  * UsuarioAtualizacaoId
 
 Estudar: https://quilljs.com/
