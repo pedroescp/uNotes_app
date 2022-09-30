@@ -64,17 +64,17 @@ Estudar: https://quilljs.com/
  - Telas:
    - Login
    - Listagem de Notas
-     > As notas fixadas ficam no topo, separadas das demais notas
-     > Ao clicar na Nota, abrir a mesma em modal 
-     > A tela deve conter espaço para digitar texto
-     > Na parte inferior deve-se ter as configurações de (Quillsjs), deletar nota, trocar entre modo texto e lista
-     > Na parte superior deve-se ter o título e o botão para fixar ou desfixar a nota
-     > Menu lateral: [Ícone] Lixeira...
+     1. As notas fixadas ficam no topo, separadas das demais notas
+     2. Ao clicar na Nota, abrir a mesma em modal 
+     3. A tela deve conter espaço para digitar texto
+     4. Na parte inferior deve-se ter as configurações de (Quillsjs), deletar nota, trocar entre modo texto e lista
+     5. Na parte superior deve-se ter o título e o botão para fixar ou desfixar a nota
+     6. Menu lateral: [Ícone] Lixeira...
    - Listagem de Documentos
-     > Documentos fixados ficam separados dos demais
-     > Ao clicar no Documento, abrir o mesmo na tela
-     > A tela deve conter espaço para digitar texto
-     > Na parte superior deve-se ter o título do documento (Padrão: `Documento sem nome`), as configurações de texto (Quilljs), salvar e deletar arquivo, exportar (PDF, DOCX), botão para compartilhar, opções de anexar notas ao arquivo
+     1. Documentos fixados ficam separados dos demais
+     2. Ao clicar no Documento, abrir o mesmo na tela
+     3. A tela deve conter espaço para digitar texto
+     4. Na parte superior deve-se ter o título do documento (Padrão: `Documento sem nome`), as configurações de texto (Quilljs), salvar e deletar arquivo, exportar (PDF, DOCX), botão para compartilhar, opções de anexar notas ao arquivo
 
 
 
