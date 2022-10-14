@@ -4,6 +4,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import PageNotFound from "./pages/PageNotFound";
 import Password from "./pages/password";
+import TextEditor from "./TextEditor";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="password" element={<Password />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <TextEditor/>
     </div>
   );
 }

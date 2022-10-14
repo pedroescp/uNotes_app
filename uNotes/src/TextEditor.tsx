@@ -9,15 +9,12 @@ const TOOLBAR_OPTIONS = [
   [{ list: "ordered" }, { list: "bullet" }],
   ["bold", "italic", "underline"],
   [{ color: [] }, { background: [] }],
-  /* [{ script: "sub" }, {script: "super"}], */
-  /* [{ aling: [] }], */
   ["image", "code-block"],
-  /* ["clean"], */
 ];
 
 function TextEditor() {
   useEffect(() => {
-    const socket = io("https://localhost:3001");
+    const socket = io("http://localhost:3001");
 
     return () => {
       socket.disconnect()
