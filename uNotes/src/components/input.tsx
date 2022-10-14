@@ -2,12 +2,12 @@ function Input() {
   return (
     <div>
       <input
-        className="w-full transition duration-150 ease-out hover:ease-in border rounded"
+        className="w-full rounded border-default p-1"
         autoComplete="off"
         type="text"
-        placeholder="Write the user"
+        placeholder=""
       />
-      <label htmlFor=""></label>
+      <label htmlFor="" className="py-1"></label>
     </div>
   );
 }

@@ -5,9 +5,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
-* {
+/* * {
   font-family: 'Poppins', sans-serif;
-}
+} */
 
 
 :root {
@@ -93,4 +93,66 @@
 
 .button-default button:active {
   transform: translateY(var(--border-size));
+}
+
+
+
+/* Quill js  */
+
+
+/* apenas testes */
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f3f3f3;
+  margin: 0;
+}
+
+
+
+/* tirar aquela barra feia */
+.ql-toolbar.ql-snow{
+  border: none !important;
+}
+
+
+.default-container{
+  /* max-width: 30rem; */
+  width: 36rem
+}
+
+.container .ql-editor{
+  padding: 0.1in;
+  margin: 0.5rem;
+  background-color: #fdfdfd;
+  min-height: 10rem;
+  border-radius: 0.375rem;
+}
+
+.container .ql-toolbar.ql-snow{
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f3f3f3;
+  border-radius: 0.375rem;
+  border: none !important;
+  box-shadow: var(--shadow) 0px 2px;
+}
+
+.ql-container {
+  border: none !important;
+}
+
+.ql-toolbar {
+  border: none !important;
+}
+
+@media print {
+  body {
+    background: none;
+  }
 }
