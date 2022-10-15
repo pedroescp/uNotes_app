@@ -2,13 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap'); */
 
 /* * {
   font-family: 'Poppins', sans-serif;
 } */
-
 
 :root {
   --border-size: 0.125rem;
@@ -38,8 +37,6 @@
   border: var(--border-size) solid black;
 }
 
-
-
 .button-default {
   display: flex;
   width: 100%;
@@ -63,11 +60,6 @@
   text-transform: lowercase;
   text-shadow: var(--shadow) 2px 2px;
   transition: flex-grow var(--duration) var(--ease);
-}
-
-.button-default button + button {
-  border-left: var(--border-size) solid black;
-  margin-left: calc(var(--border-size) * -1);
 }
 
 .button-default button:hover,
@@ -95,28 +87,12 @@
   transform: translateY(var(--border-size));
 }
 
-
-
 /* Quill js  */
-
-
-/* apenas testes */
-*, *::before, *::after{
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #f3f3f3;
-  margin: 0;
-}
-
-
 
 /* tirar aquela barra feia */
 .ql-toolbar.ql-snow{
   border: none !important;
 }
-
 
 .default-container{
   /* max-width: 30rem; */
@@ -155,4 +131,75 @@ body {
   body {
     background: none;
   }
+}
+
+
+/* NavBar */
+
+
+.navMenu {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.navMenu a {
+  text-decoration: none;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  width: 80px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.navMenu a:hover {
+  color: #fddb3a;
+}
+
+.navMenu .dot {
+  width: 6px;
+  height: 6px;
+  background: #fddb3a;
+  border-radius: 50%;
+  opacity: 0;
+  -webkit-transform: translateX(30px);
+  transform: translateX(30px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.navMenu a:nth-child(1):hover ~ .dot {
+  -webkit-transform: translateX(30px);
+  transform: translateX(30px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.navMenu a:nth-child(2):hover ~ .dot {
+  -webkit-transform: translateX(110px);
+  transform: translateX(110px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.navMenu a:nth-child(3):hover ~ .dot {
+  -webkit-transform: translateX(200px);
+  transform: translateX(200px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.navMenu a:nth-child(4):hover ~ .dot {
+  -webkit-transform: translateX(285px);
+  transform: translateX(285px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
 }

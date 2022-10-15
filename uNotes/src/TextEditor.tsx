@@ -76,7 +76,7 @@ function TextEditor() {
     <div className="flex items-center justify-center py-56">
       <div className="gap-7 flex items-center justify-center flex-col rounded-md border w-auto shadow-default border-default">
         <div
-          className="default-container container"
+          className="default-container container text-black"
           id="container"
           ref={wrapperRef}
         ></div>
