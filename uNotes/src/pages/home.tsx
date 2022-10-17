@@ -6,7 +6,11 @@ function Home() {
     <div className="App">
       <NavBar />
       <TextEditor />
-      <button className="dark:text-white">+</button>
+      <div className="button-default-plus">
+        <button className="button-default">
+          +
+        </button>
+      </div>
     </div>
   );
 }
