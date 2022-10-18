@@ -11,6 +11,7 @@
    - Telefone
    - CargoId
    - DataInclusao
+   - UsuarioPaiId
   
  - Cargo
    - Id
@@ -39,6 +40,16 @@
    - DataAtualizacao
    - UsuarioAtualizacaoId
    - DocumentoId
+   
+ - Tags
+   - Id
+   - UsuarioId
+   - Nome
+   
+ - TagsNotas
+   - Id
+   - NotaId
+   - TagId
   
  - Colaboradores
    - Id
