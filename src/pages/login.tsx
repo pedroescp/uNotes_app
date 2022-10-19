@@ -5,7 +5,7 @@ function Login() {
 				<div className='card-body items-center text-center'>
 					<div className='flex flex-row gap-8'>
 						<label className='swap swap-flip text-xl '>
-							<input type='checkbox' checked />
+							<input type='checkbox' defaultChecked />
 							<h2
 								className='swap-on tooltip tooltip-open tooltip-primary tooltip-top mt-3'
 								data-tip='Novo? Clique aqui!'
