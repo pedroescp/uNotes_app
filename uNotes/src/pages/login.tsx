@@ -1,32 +1,51 @@
-  import Button from "../components/button";
-  import Input from "../components/input";
+function Login() {
+	return (
+		<div className='flex justify-center items-center h-screen bg-slate-700'>
+			<div className='card w-[720px] bg-base-100 shadow-xl'>
+				<div className='card-body items-center text-center'>
+					<h2 className='card-title'>Login</h2>
+					<div className='divider'></div>
+					<div className='form-control w-full max-w-xl'>
+						<label className='label'>
+							<span className='label-text'>Usuário / E-mail</span>
+						</label>
+						<input
+							type='text'
+							className='input input-bordered w-full max-w-xl'
+						/>
+						<label className='label hidden'>
+							<span className='label-text-alt text-error'>
+								Mensagem de erro padrão
+							</span>
+						</label>
+					</div>
+					<div className='form-control w-full max-w-xl'>
+						<label className='label'>
+							<span className='label-text'>Senha</span>
+						</label>
+						<input
+							type='text'
+							className='input input-bordered w-full max-w-xl'
+						/>
+						<label className='label hidden'>
+							<span className='label-text-alt text-error'>
+								Mensagem de erro padrão
+							</span>
+						</label>
+					</div>
+					<div className='form-control w-full items-start mb-5 gap-2'>
+						<label className='label cursor-pointer'>
+							<input type='checkbox' className='checkbox' />
+							<span className='label-text pl-4'>Lembrar-me</span>
+						</label>
+						<a className='link'>Esqueci a senha</a>
+					</div>
 
-  function Login() {
-    return (
-      <div className="flex min-h-full items-center justify-center py-56">
-        <div className="p-7 gap-7 flex items-center justify-center flex-col rounded-md border w-80 h-1/2 shadow-default border-default">
-          <h1 className="text-shdows font-bold">μNote</h1>
-          <div className="w-full">
-            <label htmlFor="">User</label>
-            <Input />
-          </div>
+					<button className='btn btn-primary btn-wide'>Entrar</button>
+				</div>
+			</div>
+		</div>
+	);
+}
 
-          <div className="w-full">
-            <label htmlFor="">Password</label>
-
-            <Input />
-          </div>
-          <div className="grid">
-            
-            <div className="">
-              <a href="/"></a>
-            </div>
-            
-            <Button/>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  export default Login;
+export default Login;
