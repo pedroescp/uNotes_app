@@ -1,7 +1,7 @@
 function Login() {
 	return (
 		<div className='flex justify-center items-center h-screen bg-slate-700'>
-			<div className='card w-[720px] bg-base-100 shadow-xl'>
+			<div className='card w-[520px] bg-base-100 shadow-xl'>
 				<div className='card-body items-center text-center'>
 					<h2 className='card-title'>Login</h2>
 					<div className='divider'></div>
