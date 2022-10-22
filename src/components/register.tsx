@@ -1,7 +1,12 @@
 import { useFormik } from 'formik';
+import { HtmlHTMLAttributes } from 'react';
 import * as Yup from 'yup';
 
-export function RegisterContainer() {
+interface props extends HtmlHTMLAttributes<HTMLHtmlElement> {
+	aparece: boolean;
+}
+
+export function RegisterContainer(props: props) {
 	const formik = useFormik({
 		initialValues: {
 			usuario: '',
@@ -38,7 +43,10 @@ export function RegisterContainer() {
 	return (
 		<form
 			onSubmit={formik.handleSubmit}
-			className='form-control w-full max-w-xl'
+			className={
+				'form-control w-full max-w-xl' +
+				(props.aparece ? '' : ' hidden')
+			}
 		>
 			<label htmlFor='usuario' className='label'>
 				<span className='label-text'>Usuário</span>
@@ -53,7 +61,7 @@ export function RegisterContainer() {
 				value={formik.values.usuario}
 			/>
 			{formik.touched.usuario && formik.errors.usuario ? (
-				<label className='label'>
+				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
 						{formik.errors.usuario}
 					</span>
@@ -72,7 +80,7 @@ export function RegisterContainer() {
 				value={formik.values.email}
 			/>
 			{formik.touched.email && formik.errors.email ? (
-				<label className='label'>
+				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
 						{formik.errors.email}
 					</span>
@@ -92,31 +100,36 @@ export function RegisterContainer() {
 				value={formik.values.senha}
 			/>
 			{formik.touched.senha && formik.errors.senha ? (
-				<label className='label'>
+				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
 						{formik.errors.senha}
 					</span>
 				</label>
 			) : null}
 
-			<div className='flex flex-col items-start mb-5 gap-2'>
-				<label className='label cursor-pointer'>
-					<input
-						id='lembrar'
-						name='lembrar'
-						type='checkbox'
-						className='checkbox'
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-					/>
-					<span className='label-text pl-4'>Lembrar-me</span>
+			<label htmlFor='repeteSenha' className='label'>
+				<span className='label-text'>Repita a senha</span>
+			</label>
+			<input
+				id='repeteSenha'
+				name='repeteSenha'
+				type='password'
+				className='input input-bordered w-full max-w-xl'
+				onChange={formik.handleChange}
+				onBlur={formik.handleBlur}
+				value={formik.values.repeteSenha}
+			/>
+			{formik.touched.repeteSenha && formik.errors.repeteSenha ? (
+				<label className='label py-0 pr-0'>
+					<span className='label-text-alt text-error'>
+						{formik.errors.repeteSenha}
+					</span>
 				</label>
-				<a className='link'>Esqueci a senha</a>
-			</div>
+			) : null}
 
-			<div className='flex flex-col items-center'>
+			<div className='flex flex-col items-center mt-5'>
 				<button type='submit' className='btn btn-primary btn-wide'>
-					Entrar
+					Registrar e entrar!
 				</button>
 			</div>
 		</form>

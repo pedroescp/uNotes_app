@@ -42,7 +42,7 @@ export function LoginContainer() {
 				value={formik.values.usuario}
 			/>
 			{formik.touched.usuario && formik.errors.usuario ? (
-				<label className='label'>
+				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
 						{formik.errors.usuario}
 					</span>
@@ -62,7 +62,7 @@ export function LoginContainer() {
 				value={formik.values.senha}
 			/>
 			{formik.touched.senha && formik.errors.senha ? (
-				<label className='label'>
+				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
 						{formik.errors.senha}
 					</span>

@@ -16,7 +16,7 @@ function Login() {
 						<label className='swap swap-flip text-xl'>
 							<input
 								type='checkbox'
-								onClick={handleChangeOne}
+								onChange={handleChangeOne}
 								defaultChecked
 							/>
 							<h2
@@ -39,7 +39,7 @@ function Login() {
 							<LoginContainer />
 						</div>
 						<div className='swap-on cursor-auto'>
-							<RegisterContainer />
+							<RegisterContainer aparece={checkedOne} />
 						</div>
 					</label>
 				</div>
