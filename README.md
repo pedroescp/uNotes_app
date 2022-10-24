@@ -94,6 +94,8 @@ Estudar: https://quilljs.com/
 
 
 
-
+IDEIAS:
+Ao registrar, aparecer uma mensagem pedindo para o usuário informar mais dados sobre ele -> Avatar, nickname preferido, e-mail, telefone, cargo, etc.
+Se o usuário logar e não tiver essas informações, fazer essa mensagem aparecer novamente
 
 
