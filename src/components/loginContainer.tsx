@@ -1,7 +1,9 @@
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 export function LoginContainer() {
+	const navigate = useNavigate();
 	const formik = useFormik({
 		initialValues: {
 			usuario: '',
@@ -21,6 +23,7 @@ export function LoginContainer() {
 		}),
 		onSubmit: (values) => {
 			alert(JSON.stringify(values, null, 2));
+			navigate('/home');
 		},
 	});
 

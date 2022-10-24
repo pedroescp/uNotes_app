@@ -7,7 +7,7 @@ interface props extends HtmlHTMLAttributes<HTMLHtmlElement> {
 }
 
 export function RegisterContainer(props: props) {
-	const formik = useFormik({
+	const formikRegister = useFormik({
 		initialValues: {
 			usuario: '',
 			email: '',
@@ -19,10 +19,6 @@ export function RegisterContainer(props: props) {
 				.min(5, 'O usuário deve ter no mínimo 5 caracteres.')
 				.max(50, 'O usuário deve ter no máximo 50 caracteres.')
 				.required('Usuário não informado.'),
-			nickname: Yup.string()
-				.min(5, 'O nickname deve ter no mínimo 5 caracteres.')
-				.max(50, 'O nickname deve ter no máximo 50 caracteres.')
-				.required('Nickname não informado.'),
 			email: Yup.string()
 				.email('E-mail inválido')
 				.required('E-mail não informado'),
@@ -42,7 +38,7 @@ export function RegisterContainer(props: props) {
 
 	return (
 		<form
-			onSubmit={formik.handleSubmit}
+			onSubmit={formikRegister.handleSubmit}
 			className={
 				'form-control w-full max-w-xl' +
 				(props.aparece ? '' : ' hidden')
@@ -56,18 +52,18 @@ export function RegisterContainer(props: props) {
 				name='usuario'
 				type='text'
 				className='input input-bordered w-full max-w-xl'
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				value={formik.values.usuario}
+				onChange={formikRegister.handleChange}
+				onBlur={formikRegister.handleBlur}
+				value={formikRegister.values.usuario}
 			/>
-			{formik.touched.usuario && formik.errors.usuario ? (
+			{formikRegister.touched.usuario && formikRegister.errors.usuario ? (
 				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
-						{formik.errors.usuario}
+						{formikRegister.errors.usuario}
 					</span>
 				</label>
 			) : null}
-			<label htmlFor='usuario' className='label'>
+			<label htmlFor='email' className='label'>
 				<span className='label-text'>E-mail</span>
 			</label>
 			<input
@@ -75,14 +71,14 @@ export function RegisterContainer(props: props) {
 				name='email'
 				type='text'
 				className='input input-bordered w-full max-w-xl'
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				value={formik.values.email}
+				onChange={formikRegister.handleChange}
+				onBlur={formikRegister.handleBlur}
+				value={formikRegister.values.email}
 			/>
-			{formik.touched.email && formik.errors.email ? (
+			{formikRegister.touched.email && formikRegister.errors.email ? (
 				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
-						{formik.errors.email}
+						{formikRegister.errors.email}
 					</span>
 				</label>
 			) : null}
@@ -95,14 +91,14 @@ export function RegisterContainer(props: props) {
 				name='senha'
 				type='password'
 				className='input input-bordered w-full max-w-xl'
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				value={formik.values.senha}
+				onChange={formikRegister.handleChange}
+				onBlur={formikRegister.handleBlur}
+				value={formikRegister.values.senha}
 			/>
-			{formik.touched.senha && formik.errors.senha ? (
+			{formikRegister.touched.senha && formikRegister.errors.senha ? (
 				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
-						{formik.errors.senha}
+						{formikRegister.errors.senha}
 					</span>
 				</label>
 			) : null}
@@ -115,20 +111,25 @@ export function RegisterContainer(props: props) {
 				name='repeteSenha'
 				type='password'
 				className='input input-bordered w-full max-w-xl'
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				value={formik.values.repeteSenha}
+				onChange={formikRegister.handleChange}
+				onBlur={formikRegister.handleBlur}
+				value={formikRegister.values.repeteSenha}
 			/>
-			{formik.touched.repeteSenha && formik.errors.repeteSenha ? (
+			{formikRegister.touched.repeteSenha &&
+			formikRegister.errors.repeteSenha ? (
 				<label className='label py-0 pr-0'>
 					<span className='label-text-alt text-error'>
-						{formik.errors.repeteSenha}
+						{formikRegister.errors.repeteSenha}
 					</span>
 				</label>
 			) : null}
 
 			<div className='flex flex-col items-center mt-5'>
-				<button type='submit' className='btn btn-primary btn-wide'>
+				<button
+					type='submit'
+					onClick={() => formikRegister.submitForm}
+					className='btn btn-primary btn-wide'
+				>
 					Registrar e entrar!
 				</button>
 			</div>
