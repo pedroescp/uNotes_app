@@ -1,6 +1,6 @@
 import React from 'react';
-import { LoginContainer } from '../components/login';
-import { RegisterContainer } from '../components/register';
+import { LoginContainer } from '../components/loginContainer';
+import { RegisterContainer } from '../components/registerContainer';
 
 function Login() {
 	const [checkedOne, setCheckedOne] = React.useState(false);
@@ -32,8 +32,8 @@ function Login() {
 					<label className='swap swap-flip'>
 						<input
 							type='checkbox'
+							onChange={() => console.log()}
 							checked={checkedOne}
-							defaultChecked
 						/>
 						<div className='swap-off cursor-auto'>
 							<LoginContainer />
