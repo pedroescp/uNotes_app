@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginContainer } from '../components/loginContainer';
+import { LoginContainer } from '../components/loginComponent';
 import { RegisterContainer } from '../components/registerContainer';
 
 function Login() {

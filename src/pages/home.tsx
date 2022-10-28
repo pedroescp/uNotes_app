@@ -1,11 +1,14 @@
-import TextEditor from "../TextEditor";
+import { HomePage } from '../components/homepageComponent';
+import { ProfileNavbar } from '../components/profileNavbarComponent';
+import TextEditor from '../TextEditor';
 
 function Home() {
-  return (
-    <div className="App">
-      <TextEditor />
-    </div>
-  );
+	return (
+		<>
+			<ProfileNavbar />
+			<HomePage></HomePage>
+		</>
+	);
 }
 
 export default Home;

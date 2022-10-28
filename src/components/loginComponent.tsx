@@ -72,7 +72,7 @@ export function LoginContainer() {
 				</label>
 			) : null}
 
-			<div className='flex flex-col items-start mb-5 gap-2'>
+			<div className='flex flex-col items-start mb-5 gap-2 pt-2'>
 				<label className='label cursor-pointer'>
 					<input
 						id='lembrar'
@@ -82,9 +82,11 @@ export function LoginContainer() {
 						onChange={formik.handleChange}
 						onBlur={formik.handleBlur}
 					/>
-					<span className='label-text pl-4'>Lembrar-me</span>
+					<span className='label-text pl-2'>Lembrar-me</span>
 				</label>
-				<a className='link'>Esqueci a senha</a>
+				<a className='label-text-alt link link-hover'>
+					Esqueci a senha
+				</a>
 			</div>
 
 			<div className='flex flex-col items-center'>

@@ -5,7 +5,11 @@ module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 
 	theme: {
-		extend: {},
+		extend: {
+			transitionProperty: {
+				text: 'font-size;',
+			},
+		},
 	},
 	plugins: [require('daisyui')],
 	daisyui: {
