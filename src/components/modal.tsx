@@ -9,10 +9,10 @@ export default function Notes() {
   const openButtonRef = () => setOpen(!open);
 
   return (
-    <>
+    <div className="h-full w-full">
       <button
         className="btn btn-active btn-primary"
-        onClick={() => openButtonRef()}
+        onClick={() =>   openButtonRef()}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -67,6 +67,6 @@ export default function Notes() {
           </div>
         </Dialog>
       </Transition.Root>{" "}
-    </>
+    </div>
   );
 }
