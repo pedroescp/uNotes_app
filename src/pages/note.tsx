@@ -1,10 +1,13 @@
 import Notes from "../components/modal";
+import { ProfileNavbar } from "../components/profileNavbarComponent";
+import Search from "../components/search";
 
 function Note() {
   return (
-    <div className="App">
+    <>
+      <ProfileNavbar />
       <Notes />
-    </div>
+    </>
   );
 }
 
