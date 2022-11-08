@@ -6,8 +6,8 @@ interface LayoutProps {
 
 export function Base({ children }: LayoutProps) {
 	return (
-		<div className='flex justify-center h-[calc(100vh_-_80px)] lg:h-screen'>
-			<div className='container px-4'>{children}</div>
+		<div className='flex justify-center h-full lg:h-screen'>
+			<div className='container !flex-col'>{children}</div>
 		</div>
 	);
 }
