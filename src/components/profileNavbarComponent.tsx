@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import Search from "./search";
 
 interface LayoutProps {
   children?: ReactNode;
@@ -75,60 +74,18 @@ export function ProfileNavbar({ children }: LayoutProps) {
           </li>
         </ul>
       </div>
-
-      <div className="flex gap-2 justify-center">
-        <div className="form-control mt-3">
-          <div className="input-group">
-            <button className="btn btn-square">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </button>
-            <input
-              type="text"
-              placeholder="Search…"
-              className="input focus:outline-none outline-0 card-actions"
-            />
-            <button className="btn btn-square">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
       {/* Put this part before </body> tag */}
       <input type="checkbox" id="exit-site" className="modal-toggle" />
       <label htmlFor="exit-site" className="modal cursor-pointer">
-        <label className="modal-box relative" htmlFor="">
+        <label className="modal-box relative">
           <h3 className="text-lg font-bold">Desconectar</h3>
           <p className="py-4">
             Voce tem certeza que deseja descontectar sua conta?
           </p>
           <div className="py-4 justify-end flex space-x-4">
-            <button className="btn btn-ghost">Cancelar</button>
+            <label htmlFor="exit-site" className="btn btn-ghost">
+              Cancelar
+            </label>
             <button className="btn  btn-error" onClick={() => navigate("/")}>
               Desconectar
             </button>
