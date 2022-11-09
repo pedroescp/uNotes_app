@@ -45,7 +45,7 @@ export function LoginContainer() {
 				value={formik.values.usuario}
 			/>
 			{formik.touched.usuario && formik.errors.usuario ? (
-				<label className='label py-0 pr-0'>
+				<label className='label py-0 pr-0 my-2'>
 					<span className='label-text-alt text-error'>
 						{formik.errors.usuario}
 					</span>
@@ -65,7 +65,7 @@ export function LoginContainer() {
 				value={formik.values.senha}
 			/>
 			{formik.touched.senha && formik.errors.senha ? (
-				<label className='label py-0 pr-0'>
+				<label className='label py-0 pr-0 my-2'>
 					<span className='label-text-alt text-error'>
 						{formik.errors.senha}
 					</span>
@@ -84,7 +84,7 @@ export function LoginContainer() {
 					/>
 					<span className='label-text pl-2'>Lembrar-me</span>
 				</label>
-				<a className='label-text-alt link link-hover'>
+				<a className='label-text-alt link link-hover' onClick={() => navigate('/forgotPassword')}>
 					Esqueci a senha
 				</a>
 			</div>
