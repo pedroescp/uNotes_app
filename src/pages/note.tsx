@@ -88,8 +88,8 @@ function Note() {
             </li>
           </ul>
         </div>
+        <Notes />
       </div>
-	  <Notes/>
     </Base>
   );
 }
