@@ -3,28 +3,48 @@ import { ExitSiteMesssage } from '../components/exitSite';
 import Notes from '../components/modal';
 import {
 	ArchiveIcon,
+	DoubleArrowRight,
 	ExitMarkIcon,
 	HamburgerIcon,
 	LogoutIcon,
+	NoteIcon,
+	SearchIcon,
 	TrashIcon,
 	UserIcon,
 } from '../icons/icons';
 
 function Note() {
 	return (
-		<Base>
+		<>
+			<div className='hidden sm:flex flex-col gap-2 p-1 z-10 absolute w-20 h-full'>
+				<button className='btn btn-accent btn-outline'>
+					<DoubleArrowRight />
+				</button>
+				<button className='btn btn-accent btn-outline mt-5'>
+					<NoteIcon />
+				</button>
+				<button className='btn btn-accent btn-outline'>
+					<ArchiveIcon />
+				</button>
+				<button className='btn btn-accent btn-outline'>
+					<TrashIcon />
+				</button>
+				<button className='btn btn-accent btn-outline mt-auto'>
+					<TrashIcon />
+				</button>
+			</div>
 			<div className='drawer'>
 				<input
 					id='menu-lateral'
 					type='checkbox'
 					className='drawer-toggle'
 				/>
-				<div className='drawer-content flex flex-col p-4'>
-					<div className='bg-base-200 p-1 rounded-full'>
+				<div className='drawer-content flex flex-col p-4 sm:items-center sm:pl-20'>
+					<div className='bg-base-200 sm:w-96 md:w-3/4 lg:w-2/3 p-1 rounded-full'>
 						<div className='flex gap-2'>
 							<label
 								htmlFor='menu-lateral'
-								className='btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-12 min-h-0 drawer-button'
+								className='btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-12 min-h-0 drawer-button sm:hidden'
 							>
 								<HamburgerIcon />
 							</label>
@@ -33,15 +53,18 @@ function Note() {
 								placeholder='Toque para filtrar notas'
 								className='input input-sm px-2 w-full rounded-full bg-base-200 transition-all focus:input-md focus:bg-base-100 focus:outline-none active:outline-none active:outline-0'
 							/>
+							<button className='btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-12 min-h-0 drawer-button hidden sm:flex'>
+								<SearchIcon />
+							</button>
 						</div>
 					</div>
 				</div>
-				<div className='drawer-side'>
+				<div className='drawer-side sm:hidden'>
 					<label
 						htmlFor='menu-lateral'
-						className='drawer-overlay'
+						className='drawer-overlay sm:hidden'
 					></label>
-					<ul className='menu p-4 w-80 bg-base-100 text-base-content'>
+					<ul className='menu p-4 w-80 bg-base-100 text-base-content sm:hidden'>
 						<li className='items-end mb-10'>
 							<label htmlFor='menu-lateral'>
 								<a>
@@ -103,7 +126,7 @@ function Note() {
 				<Notes />
 				<ExitSiteMesssage htmlFor='exit-site' />
 			</div>
-		</Base>
+		</>
 	);
 }
 
