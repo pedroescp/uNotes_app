@@ -23,6 +23,7 @@ export function LoginContainer() {
 		}),
 		onSubmit: (values) => {
 			alert(JSON.stringify(values, null, 2));
+			localStorage.getItem("loged")
 			navigate('/home');
 		},
 	});

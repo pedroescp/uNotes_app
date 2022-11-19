@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useWindowDimensions from '../hooks/useWindowDimensions';
-import { LogoutIcon, UserIcon } from '../icons/icons';
+import { LogoutIcon, UserIcon } from '../images/icons/icons';
 import { ExitSiteMesssage } from './exitSite';
 
 interface LayoutProps {
@@ -15,7 +15,7 @@ export function ProfileNavbar({ children }: LayoutProps) {
 	function classes(): string {
 		return width < 1024
 			? 'btn bg-base-300 border-base-300 shadow-lg fixed flex justify-between bottom-0 w-full h-20 dropdown dropdown-top z-50'
-			: 'fixed flex items-center rounded-2xl dropdown h-20 px-8 bg-base-300 dropdown z-2 mt-4 mr-4 right-0 dropdown-end';
+			: 'fixed flex items-center rounded-2xl dropdown h-20 px-8 bg-base-300 dropdown z-2 mt-4 mr-4 right-0 dropdown-end z-50';
 	}
 
 	return (

@@ -7,11 +7,11 @@ import { io } from "socket.io-client";
 const TOOLBAR_OPTIONS = [
   /* [{ header: [1, 2, 3, 4, 5, 6, false] }], */
   /* [{ font: [] }], */
-  ["bold", "italic", "underline"],
-  [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+  /* ["bold", "italic", "underline"], */
+  /* [{ list: "ordered" }, { list: "bullet" }, { list: "check" }], */
 
   /* [{ color: [] }, { background: [] }], */
-  ["code-block"],
+  /* ["code-block"], */
 ];
 
 function TextEditor() {
@@ -67,8 +67,8 @@ function TextEditor() {
     const editor = document.createElement("div");
     wrapper.append(editor);
     const q = new Quill(editor, {
-      theme: "snow",
-      modules: { toolbar: TOOLBAR_OPTIONS },
+/*       theme: "snow",
+      modules: { toolbar: TOOLBAR_OPTIONS }, */
       placeholder: "Escrever uma nota",
     });
     setQuill(q);

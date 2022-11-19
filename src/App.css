@@ -217,3 +217,11 @@
   margin-right: 0.4em !important;
   text-align: center !important;
 }
+
+.card_preview-text > p{
+  display: -webkit-box;
+  -webkit-line-clamp: 18;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+  padding: 0;
+}
