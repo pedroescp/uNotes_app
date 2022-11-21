@@ -95,13 +95,13 @@ const NavBar = () => {
               </a>
             </li>
             <li>
-              <a>
+              <a onClick={() => navigate("/archive")}>
                 <ArchiveIcon />
                 Arquivo
               </a>
             </li>
             <li>
-              <a>
+              <a onClick={() => navigate("/trash")}>
                 <TrashIcon />
                 Lixeira
               </a>

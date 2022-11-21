@@ -1,7 +1,7 @@
 import NavBar from "../components/navBar";
 
-const Profile = () => {
+const Archive = () => {
   return <>{<NavBar />}</>;
 };
 
-export default Profile;
+export default Archive;
