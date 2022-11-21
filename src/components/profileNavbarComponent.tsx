@@ -37,9 +37,9 @@ export function ProfileNavbar({ children }: LayoutProps) {
 					className='menu dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52 lg:mt-52'
 				>
 					<li>
-						<a>
+						<a onClick={() => navigate('/profile')}>
 							<UserIcon />
-							Perfil
+								
 						</a>
 					</li>
 					<li>

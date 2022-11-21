@@ -5,7 +5,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Note from "./pages/note";
 import PageNotFound from "./pages/PageNotFound";
-import { useState, useEffect } from "react";
+import Profile from "./pages/profile";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/home" element={<Home />} />
       <Route path="/note" element={<Note />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }
