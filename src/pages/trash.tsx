@@ -1,7 +1,7 @@
-import NavBar from "../components/navBar";
+import NavBar from '../components/navBar';
 
 const Trash = () => {
-  return <>{<NavBar />}</>;
+  return <></>;
 };
 
 export default Trash;

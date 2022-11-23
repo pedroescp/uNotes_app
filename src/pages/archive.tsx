@@ -1,7 +1,7 @@
-import NavBar from "../components/navBar";
+import NavBar from '../components/navBar';
 
 const Archive = () => {
-  return <>{<NavBar />}</>;
+  return <></>;
 };
 
 export default Archive;

@@ -1,11 +1,11 @@
-import { HomePage } from "../components/homepageComponent";
-import { ProfileNavbar } from "../components/profileNavbarComponent";
+import { HomePage } from '../components/homepageComponent';
+import { ProfileNavbar } from '../components/profileNavbarComponent';
 
 function Home() {
   return (
     <>
       <ProfileNavbar />
-      <HomePage></HomePage>
+      <HomePage />
     </>
   );
 }
