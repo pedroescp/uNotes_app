@@ -53,7 +53,7 @@ export function NotesCharges() {
     <div className='m-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 gap-8 justify-items-center mt-20 '>
         {notes.map((note: any) => (
-          <div key={note.id} id={note.id} className=' w-full h-full'>
+          <div key={note.id} id={note.id} className='w-full'>
             <div className='card bg-secondary text-primary-content cursor-pointer h-full '>
               <div className='card-body p-4'>
                 <h2 className='card-title px-2 justify-between'>
