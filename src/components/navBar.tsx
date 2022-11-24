@@ -39,7 +39,7 @@ const NavBar = ({ children }: Props) => {
               </div>
             </label>
             <span className='text-start '>
-              <span className='text-lg'>Pedrolas</span>
+              <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
               <p className='text-xs capitalize'>Desenvolvedor</p>
             </span>
           </div>
@@ -131,7 +131,7 @@ const NavBar = ({ children }: Props) => {
                 </div>
               </div>
               <span className='text-start'>
-                <span className='text-lg'>Rafael</span>
+                <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
                 <p className='text-xs capitalize'>Desenvolvedor</p>
               </span>
               <ul

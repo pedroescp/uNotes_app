@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../contents/auth";
+import { useContext } from "react";
 
 interface LayoutProps {
 	htmlFor: string;
@@ -8,6 +10,7 @@ interface LayoutProps {
 
 export function ExitSiteMesssage({ htmlFor, navigateTo }: LayoutProps) {
 	const navigate = useNavigate();
+	const { logout } = useContext(AuthContext);
 
 	return (
 		<>
@@ -24,7 +27,7 @@ export function ExitSiteMesssage({ htmlFor, navigateTo }: LayoutProps) {
 						</label>
 						<button
 							className='btn btn-error'
-							onClick={() => navigate(navigateTo || '/')}
+							onClick={() => navigate(navigateTo || '/', logout()) }
 						>
 							Desconectar
 						</button>
