@@ -28,7 +28,7 @@ export function ProfileNavbar({ children }: LayoutProps) {
             </div>
           </label>
           <span className='text-start '>
-            <span className='text-lg'>Pedrolas</span>
+            <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
             <p className='text-xs capitalize'>Desenvolvedor</p>
           </span>
         </div>
@@ -50,6 +50,7 @@ export function ProfileNavbar({ children }: LayoutProps) {
           </li>
         </ul>
       </div>
+
       <ExitSiteMesssage htmlFor='exit-site' />
     </>
   );

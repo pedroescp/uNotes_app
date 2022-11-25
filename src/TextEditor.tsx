@@ -26,7 +26,7 @@ function TextEditor({ note }: Parameters) {
   useEffect(() => {
     if (socket == null || quill == null) return;
 
-    const handler = (delta) => {
+    const handler = (delta: any) => {
       quill.updateContents(delta);
     };
 
@@ -41,7 +41,7 @@ function TextEditor({ note }: Parameters) {
   useEffect(() => {
     if (socket == null || quill == null) return;
 
-    const handler = (delta, oldDelta, source) => {
+    const handler = (delta: any, oldDelta: any, source: any) => {
       if (source !== 'user') return;
       socket.emit('send-changes', delta);
     };
@@ -55,7 +55,7 @@ function TextEditor({ note }: Parameters) {
 
   //the connection
   useEffect(() => {
-    const s = io('http://localhost:3001');
+    const s = io('wss://localhost:8080');
     setSocket(s);
 
     return () => {
@@ -64,7 +64,7 @@ function TextEditor({ note }: Parameters) {
   }, []);
 
   //configure the lib and the wrapper the content in
-  const wrapperRef = useCallback((wrapper) => {
+  const wrapperRef = useCallback((wrapper: any) => {
     if (wrapper == null) return;
 
     wrapper.innerHTML = '';
