@@ -6,7 +6,6 @@ import { AuthContext } from "../contents/auth/";
 import { useContext } from "react";
 
 export function LoginContainer() {
-  const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
   const formik = useFormik({
