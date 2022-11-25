@@ -25,7 +25,7 @@ const NavBar = ({ children }: Props) => {
   function classes(): string {
     return width < 1024
       ? 'hidden'
-      : 'fixed flex items-center rounded-2xl dropdown h-20 px-8 bg-base-300 dropdown z-2 mt-4 mr-4 right-0 dropdown-end z-50';
+      : 'fixed flex items-center rounded-2xl dropdown h-20 px-8 bg-base-300 dropdown z-2 mt-4 mr-4 right-0 dropdown-end z-10';
   }
 
   function ProfileComponent() {
@@ -69,7 +69,7 @@ const NavBar = ({ children }: Props) => {
 
   function SearchComponent() {
     return (
-      <div className='bg-base-200 w-full m-auto sm:w-96 md:w-3/4 lg:w-1/2 p-1 rounded-full'>
+      <div className='bg-base-200 w-full mx-auto sm:w-96 md:w-3/4 lg:w-1/2 p-1 rounded-full'>
         <div className='flex gap-2'>
           <label
             htmlFor='menu-lateral'
