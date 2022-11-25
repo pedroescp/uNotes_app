@@ -1,29 +1,47 @@
-import { useEffect, useState } from 'react';
-import { Fixed } from '../images/icons/icons';
+import { useState, useRef } from 'react';
+import { Bookmark } from '../images/icons/icons';
 import api from '../utils/api';
+import { NotesModal } from './notesModal';
 
-export async function NotesCharges() {
-    const [notes, setNotes] = useState({ data: [] })
-    async function getNotes() {
-        return await api.notesGet()
-    }
-    const listNotes = await getNotes();
-    await setNotes(listNotes.data.map((data: { titulo: string, texto: string}) => {
-        return data;
-    }))
-    console.log(listNotes.data[0])
+export function NotesCharges() {
+  const [open, setOpen] = useState(false);
+  const cancelButtonRef = useRef(null);
+  const [note, setNote] = useState(undefined);
+  const openButtonRef = (note: any) => {
+    setNote(note);
+    setOpen(!open);
+  };
+
+  const [notes, setNotes] = useState({ data: [] })
+  async function getNotes() {
+      return await api.notesGet()
+  }
+  const listNotes = await getNotes();
+  await setNotes(listNotes.data.map((data: { titulo: string, texto: string}) => {
+      return data;
+  }))
+  console.log(listNotes.data[0])
+
   return (
-    <div className='m-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
+    <div className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4 gap-8 justify-items-center mt-20 '>
-        {listNotes.data[0].map((note: any) => (
-          <div key={note.id} id={note.id} className='w-full h-fit'>
-            <div className='card bg-secondary text-primary-content cursor-pointer h-full '>
+        {notes.map((note: any) => (
+          <div
+            onClick={() => openButtonRef(note)}
+            key={note.id}
+            id={note.id}
+            className='w-full h-fit'
+          >
+            <div className='card bg-secondary text-primary-content cursor-pointer h-full'>
               <div className='card-body p-4'>
-                <h2 className='card-title px-2 justify-between'>
-                  {note.titulo}
-
-                  <Fixed />
-                </h2>
+                <div className='flex'>
+                  <h2 className='card-title pl-2 justify-between w-[90%] break-all'>
+                    {note.title}
+                  </h2>
+                  <span className='px-2'>
+                    <Bookmark />
+                  </span>
+                </div>
 
                 <p>
                   <div
@@ -31,7 +49,7 @@ export async function NotesCharges() {
                     data-gramm='false'
                     data-placeholder='Escrever uma nota'
                   >
-                    {note.documentoId}
+                    {note.description}
                   </div>
                 </p>
               </div>
@@ -39,6 +57,7 @@ export async function NotesCharges() {
           </div>
         ))}
       </div>
+      <NotesModal open={open} cancelButtonRef={cancelButtonRef} setOpen={setOpen} note={note} />
     </div>
   );
 }
