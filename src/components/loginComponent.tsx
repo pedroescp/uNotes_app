@@ -64,7 +64,7 @@ export function LoginContainer() {
         value={formik.values.usuario}
       />
       {(formik.touched.usuario && formik.errors.usuario) || errors ? (
-        <label className='label py-0 pr-0'>
+        <label className='label pb-0 pt-2 pr-0'>
           <span className='label-text-alt text-error'>{formik.errors.usuario || errors}</span>
         </label>
       ) : null}
@@ -83,7 +83,7 @@ export function LoginContainer() {
         value={formik.values.senha}
       />
       {(formik.touched.senha && formik.errors.senha) || errors ? (
-        <label className='label py-0 pr-0'>
+        <label className='label pb-0 pt-2 pr-0'>
           <span className='label-text-alt text-error'>{formik.errors.senha || errors}</span>
         </label>
       ) : null}

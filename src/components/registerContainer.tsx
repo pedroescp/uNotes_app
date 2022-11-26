@@ -68,7 +68,7 @@ export function RegisterContainer(props: props) {
         value={formikRegister.values.usuario}
       />
       {formikRegister.touched.usuario && formikRegister.errors.usuario ? (
-        <label className="label py-0 pr-0">
+        <label className="label pb-0 pt-2 pr-0">
           <span className="label-text-alt text-error">
             {formikRegister.errors.usuario}
           </span>
@@ -87,7 +87,7 @@ export function RegisterContainer(props: props) {
         value={formikRegister.values.email}
       />
       {formikRegister.touched.email && formikRegister.errors.email ? (
-        <label className="label py-0 pr-0">
+        <label className="label pb-0 pt-2 pr-0">
           <span className="label-text-alt text-error">
             {formikRegister.errors.email}
           </span>
@@ -107,7 +107,7 @@ export function RegisterContainer(props: props) {
         value={formikRegister.values.senha}
       />
       {formikRegister.touched.senha && formikRegister.errors.senha ? (
-        <label className="label py-0 pr-0">
+        <label className="label pb-0 pt-2 pr-0">
           <span className="label-text-alt text-error">
             {formikRegister.errors.senha}
           </span>
@@ -128,7 +128,7 @@ export function RegisterContainer(props: props) {
       />
       {formikRegister.touched.repeteSenha &&
       formikRegister.errors.repeteSenha ? (
-        <label className="label py-0 pr-0">
+        <label className="label pb-0 pt-2 pr-0">
           <span className="label-text-alt text-error">
             {formikRegister.errors.repeteSenha}
           </span>

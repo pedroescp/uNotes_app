@@ -29,13 +29,14 @@ const api = {
     return request;
   },
 
-  notesGet: async (data: any) => {
-    const request = await axios({
-      method: "POST",
-      data: data,
-      url: "usuario",
+  notesGet: async () => {
+    let token = localStorage.getItem('token');
+    const result = await axios.get("notes", {
+        headers: {
+            'authorization': `Bearer ${token?.slice(1, token.length - 1)}`
+        }
     });
-    return request;
+    return result.data;
   },
 
   cargoPost: async (data: any) => {

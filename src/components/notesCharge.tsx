@@ -1,61 +1,24 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Bookmark } from '../images/icons/icons';
 import { NotesModal } from './notesModal';
-
-const notes = [
-  {
-    id: 1,
-    title: 'Bob Jones',
-    description: '<p>dfsdfsdf</p><p>dfsdfsdf</p><p>dfsdfsdf</p><p>dfsdfsdf</p>',
-  },
-  {
-    id: 12,
-    title: 'Bob Jasdasdones',
-    description: 'Javascript',
-  },
-  {
-    id: 3,
-    title: 'Bobasdasdas Jones',
-    description: 'Javascrasdasdadaipt',
-  },
-  {
-    id: 4,
-    title: 'sdasdasdasdasds',
-    description: 'Javascriasdasdasdasdasdpt',
-  },
-  {
-    id: 6,
-    title: 'asdasdasdasdnes',
-    description: 'Javascaaaaaaaaaaaaaaaaipt',
-  },
-  {
-    id: 7,
-    title: 'asdasdasdasdnes',
-    description: 'Javascaaaaaaaaaaaaaaaaipt',
-  },
-  {
-    id: 9,
-    title: 'asdasdasdasdnes',
-    description: 'asaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-  },
-  {
-    id: 10,
-    title: 'asdasdasdasdnes',
-    description: 'Javascaaaaaaaaaaaaaaaaipt',
-  },
-  {
-    id: 8,
-    title: 'asdasdasdasdnes',
-    description: 'Javascaaaaaaaaaaaaaaaaipt',
-  },
-];
+import api from '../utils/api';
 
 export function NotesCharges() {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
-  const [note, setNote] = useState(undefined);
+  const [notes, setNotes] = useState([]);
+  const [note, setOnltNote] = useState([]);
+
+  useEffect(() => {
+    async function getNotes() {
+      const response = await api.notesGet();
+      setNotes(response.data);      
+    }
+    getNotes();
+  }, []);
+
   const openButtonRef = (note: any) => {
-    setNote(note);
+    setOnltNote(note)
     setOpen(!open);
   };
 
@@ -73,7 +36,7 @@ export function NotesCharges() {
               <div className='card-body p-4'>
                 <div className='flex'>
                   <h2 className='card-title pl-2 justify-between w-[90%] break-all'>
-                    {note.title}
+                    {note.titulo}
                   </h2>
                   <span className='px-2'>
                     <Bookmark />
@@ -86,7 +49,7 @@ export function NotesCharges() {
                     data-gramm='false'
                     data-placeholder='Escrever uma nota'
                   >
-                    {note.description}
+                    {note.texto}
                   </div>
                 </p>
               </div>
