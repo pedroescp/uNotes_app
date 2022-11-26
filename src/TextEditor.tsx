@@ -75,7 +75,7 @@ function TextEditor({ note }: Parameters) {
       modules: { toolbar: TOOLBAR_OPTIONS }, */
       placeholder: 'Escrever uma nota',
     });
-    if (note && note.description) q.setText(note?.description);
+    if (note && note.texto) q.setText(note?.texto);
     setQuill(q);
   }, []);
 
@@ -86,7 +86,7 @@ function TextEditor({ note }: Parameters) {
           type='text'
           placeholder='Titulo'
           maxLength={30}
-          defaultValue={note?.title}
+          defaultValue={note?.titulo}
           className='input input-ghost w-full bg-transparent focus:outline-none'
         />
         <div className='mr-5'>

@@ -1,4 +1,3 @@
-import { string } from "yup";
 import axios from "./axios";
 
 const api = {
