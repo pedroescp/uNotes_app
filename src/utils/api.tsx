@@ -25,8 +25,6 @@ const api = {
   },
 
   notesPost: async (data: any) => {
-    console.log(data);
-    
     const result = await axios.post('notes', data, {
       headers,
     });
