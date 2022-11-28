@@ -34,10 +34,10 @@
    - Titulo
    - Texto 10000
    - CriadorId
-   - Lixeira bit
-   - Fixado bit
+   - Estado: Enum
    - DataInclusao
    - DataAtualizacao
+   - DataExclusão
    - UsuarioAtualizacaoId
    - DocumentoId
    
