@@ -11,7 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { ExitSiteMesssage } from './exitSite';
 import useWindowDimensions from '../hooks/useWindowDimensions';
-import NotesFAB from './noteCreate';
+
 import { ReactNode } from 'react';
 
 interface Props {
@@ -33,12 +33,12 @@ const NavBar = ({ children }: Props) => {
       <>
         <div className={classes()} tabIndex={0}>
           <div className='flex gap-2 cursor-pointer'>
-            <label className='btn btn-ghost btn-circle avatar'>
+            <label className='btn btn-ghost btn-circle avatar online'>
               <div className='w-10 rounded-full'>
                 <img src='https://placeimg.com/80/80/people' />
               </div>
             </label>
-            <span className='text-start '>
+            <span className='text-start'>
               <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
               <p className='text-xs capitalize'>Desenvolvedor</p>
             </span>
@@ -125,7 +125,7 @@ const NavBar = ({ children }: Props) => {
               className='dropdown dropdown-top z-50 active:!bg-[#c2d0ea1a] active:text-[#c2d0ea]'
               tabIndex={0}
             >
-              <div className='avatar'>
+              <div className='avatar online'>
                 <div className='w-8 rounded-full'>
                   <img src='https://placeimg.com/192/192/people' />
                 </div>
@@ -171,7 +171,6 @@ const NavBar = ({ children }: Props) => {
           {/* Conteúdo da página */ children}
         </div>
         <div className='drawer-side'>{DrawerComponent()}</div>
-        <NotesFAB />
       </div>
     </>
   );

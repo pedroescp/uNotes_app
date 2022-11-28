@@ -3,24 +3,41 @@ import { Bookmark } from '../images/icons/icons';
 import { NotesModal } from './notesModal';
 import api from '../utils/api';
 
-export function NotesCharges() {
+interface Parameters {
+  type: string;
+}
+
+export function NotesCharges({ type }: Parameters) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
   const [notes, setNotes] = useState([]);
-  const [note, setOnltNote] = useState([]);
+  const [note, setOnlyNote] = useState([]);
+  const [teste, setTeste] = useState([]);
 
   useEffect(() => {
     async function getNotes() {
+      //make a filter 
       const response = await api.notesGet();
-      setNotes(response.data);      
+      setNotes(response.data);
     }
     getNotes();
   }, []);
 
   const openButtonRef = (note: any) => {
-    setOnltNote(note)
+    setOnlyNote(note);
     setOpen(!open);
   };
+
+  useEffect(() => {
+    async function setOnlyNotes() {
+      if (!open) {
+        console.log(note);
+        
+        //await api.notesPost(note);
+      }
+    }
+    setOnlyNotes();
+  });
 
   return (
     <div className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
