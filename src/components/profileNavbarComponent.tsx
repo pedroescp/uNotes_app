@@ -22,7 +22,7 @@ export function ProfileNavbar({ children }: LayoutProps) {
     <>
       <div className={classes()} tabIndex={0}>
         <div className='flex gap-2 cursor-pointer'>
-          <label className='btn btn-ghost btn-circle avatar'>
+          <label className='btn btn-ghost btn-circle avatar online'>
             <div className='w-10 rounded-full'>
               <img src='https://placeimg.com/80/80/people' />
             </div>
