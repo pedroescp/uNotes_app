@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { createRef, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import TextEditor from '../TextEditor';
 
@@ -7,12 +7,28 @@ interface Parameters {
   cancelButtonRef: any;
   setOpen: any;
   note?: any;
+  onClose?: (value: any) => void;
 }
 
-export function NotesModal({ open, cancelButtonRef, setOpen, note }: Parameters) {
+export function NotesModal({ open, cancelButtonRef, setOpen, note, onClose }: Parameters) {
+  function closeModal() {
+    setOpen(false);
+
+    !!onClose && onClose((getTextEditorRef() as any).getValue());
+  }
+
+  const textEditorRef = createRef();
+
+  const getTextEditorRef = () => textEditorRef.current;
+
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as='div' className='relative z-10' initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog
+        as='div'
+        className='relative z-10'
+        initialFocus={cancelButtonRef}
+        onClose={closeModal}
+      >
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -37,7 +53,7 @@ export function NotesModal({ open, cancelButtonRef, setOpen, note }: Parameters)
               leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
               <Dialog.Panel className='relative transform overflow-hidden rounded-lg bg-slate-700 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg h-full w-full'>
-                <TextEditor note={note} />
+                <TextEditor ref={textEditorRef} note={note} />
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -12,13 +12,13 @@ export function NotesCharges() {
   useEffect(() => {
     async function getNotes() {
       const response = await api.notesGet();
-      setNotes(response.data);      
+      setNotes(response.data);
     }
     getNotes();
   }, []);
 
   const openButtonRef = (note: any) => {
-    setOnltNote(note)
+    setOnltNote(note);
     setOpen(!open);
   };
 

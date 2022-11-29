@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import {
+  createRef,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import 'quill/dist/quill.snow.css';
 import Quill from 'quill';
 import { io } from 'socket.io-client';
@@ -18,9 +25,13 @@ interface Parameters {
   note: any;
 }
 
-function TextEditor({ note }: Parameters) {
+const TextEditor = forwardRef(({ note }: Parameters, ref) => {
   const [socket, setSocket] = useState();
   const [quill, setQuill] = useState();
+
+  const inputTitleRef = createRef();
+
+  const getInputTitleRef = () => inputTitleRef.current;
 
   //receive the socket in another location and write in
   useEffect(() => {
@@ -79,10 +90,26 @@ function TextEditor({ note }: Parameters) {
     setQuill(q);
   }, []);
 
+  const getValue = () => {
+    if (quill) {
+      return {
+        title: (getInputTitleRef() as any).value,
+        text: (quill as Quill).getText(),
+      };
+    }
+
+    return null;
+  };
+
+  useImperativeHandle(ref, () => ({
+    getValue,
+  }));
+
   return (
     <>
       <div className='flex justify-between items-center pt-5 mb-0.5 title-note'>
         <input
+          ref={inputTitleRef}
           type='text'
           placeholder='Titulo'
           maxLength={30}
@@ -96,6 +123,6 @@ function TextEditor({ note }: Parameters) {
       <div className='container' id='container' ref={wrapperRef}></div>
     </>
   );
-}
+});
 
 export default TextEditor;
