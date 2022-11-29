@@ -1,4 +1,8 @@
 import axios from './axios';
+let token = localStorage.getItem('token');
+const headers = {
+  authorization: `Bearer ${token?.slice(1, token.length - 1)}`,
+};
 
 const api = {
   //TODO  refator this exemple
@@ -21,22 +25,14 @@ const api = {
   },
 
   notesPost: async (data: any) => {
-    let token = localStorage.getItem('token');
-    const result = await axios.post('notes', {
-      headers: {
-        authorization: `Bearer ${token?.slice(1, token.length - 1)}`,
-      },
+    const result = await axios.post('notes', data, {
+      headers,
     });
     return result.data;
   },
 
   notesGet: async () => {
-    let token = localStorage.getItem('token');
-    const result = await axios.get('notes', {
-      headers: {
-        authorization: `Bearer ${token?.slice(1, token.length - 1)}`,
-      },
-    });
+    const result = await axios.get('notes', { headers });
     return result.data;
   },
 
