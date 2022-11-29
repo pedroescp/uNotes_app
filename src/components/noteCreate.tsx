@@ -11,12 +11,13 @@ export default function Notes() {
     setOpen(!open);
   };
 
-  const handleOnNotesModalClose = ({ title, text }: any) => {
+  const handleOnNotesModalClose = ({ title, text }: any) => {   
+     
     api.notesPost({
       titulo: title,
       texto: text,
-      criadorId: '8cf79993-323e-46aa-b0fd-2bbaca606158',
-      usuarioAtualizacaoId: '8cf79993-323e-46aa-b0fd-2bbaca606158',
+      criadorId: "f0f1b37b-23ec-47ad-b777-307ace3e45ae",
+      usuarioAtualizacaoId: "f0f1b37b-23ec-47ad-b777-307ace3e45ae",
       documentoId: null,
     });
   };

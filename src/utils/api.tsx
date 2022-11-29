@@ -24,8 +24,17 @@ const api = {
     return request;
   },
 
-  notesPost: async (data: any) => {
+  notesPost: async (data: any) => {    
     const result = await axios.post('notes', data, {
+      headers,
+    });
+    return result.data;
+  },
+
+  notesUpdate: async (data: any) => {    
+    console.log(data);
+    
+    const result = await axios.put('notes', data, {
       headers,
     });
     return result.data;

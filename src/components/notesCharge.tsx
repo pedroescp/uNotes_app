@@ -12,11 +12,10 @@ export function NotesCharges({ type }: Parameters) {
   const cancelButtonRef = useRef(null);
   const [notes, setNotes] = useState([]);
   const [note, setOnlyNote] = useState([]);
-  const [teste, setTeste] = useState([]);
 
   useEffect(() => {
     async function getNotes() {
-      //make a filter 
+      //make a filter
       const response = await api.notesGet();
       setNotes(response.data);
     }
@@ -28,16 +27,26 @@ export function NotesCharges({ type }: Parameters) {
     setOpen(!open);
   };
 
-  useEffect(() => {
-    async function setOnlyNotes() {
-      if (!open) {
-        console.log(note);
-        
-        //await api.notesPost(note);
-      }
+  const handleOnNotesModalClose = ({ title, text }: any) => {
+    async function notesUpdate() {
+      //make a filter
+      await api.notesUpdate({
+        id: note['id'],
+        titulo: title,
+        texto: text,
+        criadorId: 'f0f1b37b-23ec-47ad-b777-307ace3e45ae',
+        usuarioAtualizacaoId: 'f0f1b37b-23ec-47ad-b777-307ace3e45ae',
+        documentoId: null,
+      });
+    } 
+    async function getNotes() {
+      //make a filter
+      const response = await api.notesGet();
+      setNotes(response.data);
     }
-    setOnlyNotes();
-  });
+    notesUpdate()
+    getNotes();
+  };
 
   return (
     <div className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
@@ -74,7 +83,13 @@ export function NotesCharges({ type }: Parameters) {
           </div>
         ))}
       </div>
-      <NotesModal open={open} cancelButtonRef={cancelButtonRef} setOpen={setOpen} note={note} />
+      <NotesModal
+        open={open}
+        cancelButtonRef={cancelButtonRef}
+        setOpen={setOpen}
+        note={note}
+        onClose={handleOnNotesModalClose}
+      />
     </div>
   );
 }

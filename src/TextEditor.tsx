@@ -34,7 +34,7 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
   const getInputTitleRef = () => inputTitleRef.current;
 
   //receive the socket in another location and write in
-  useEffect(() => {
+/*   useEffect(() => {
     if (socket == null || quill == null) return;
 
     const handler = (delta: any) => {
@@ -72,7 +72,7 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
     return () => {
       s.disconnect();
     };
-  }, []);
+  }, []); */
 
   //configure the lib and the wrapper the content in
   const wrapperRef = useCallback((wrapper: any) => {
