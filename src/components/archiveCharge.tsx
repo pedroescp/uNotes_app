@@ -35,8 +35,6 @@ export function ArchiveCharges({ type }: Parameters) {
             onClick={() => openButtonRef(note)}
             key={note.id}
             id={note.id}
-            
-            
             className='w-full h-fit'
           >
             <div className='card bg-secondary text-primary-content cursor-pointer h-full'>
@@ -46,7 +44,7 @@ export function ArchiveCharges({ type }: Parameters) {
                     {note.titulo}
                   </h2>
                   <span className='px-2'>
-                    <Bookmark key={note.bookmark} onClick={console.log(note)} />
+                    <Bookmark key={note.bookmark} />
                   </span>
                 </div>
 
@@ -64,12 +62,7 @@ export function ArchiveCharges({ type }: Parameters) {
           </div>
         ))}
       </div>
-      <NotesModal
-        open={open}
-        cancelButtonRef={cancelButtonRef}
-        setOpen={setOpen}
-        note={note}
-      />
+      <NotesModal open={open} cancelButtonRef={cancelButtonRef} setOpen={setOpen} note={note} />
     </div>
   );
 }

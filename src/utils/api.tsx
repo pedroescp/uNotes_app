@@ -32,8 +32,6 @@ const api = {
   },
 
   notesUpdate: async (data: any) => {
-    console.log(data);
-
     const result = await axios.put('notes', data, {
       headers,
     });
@@ -64,7 +62,7 @@ const api = {
   },
 
   trashGet: async () => {
-    const result = await axios.get('notes/obter-por-usuario-lixeira',   {
+    const result = await axios.get('notes/obter-por-usuario-lixeira', {
       headers,
     });
     return result.data;
