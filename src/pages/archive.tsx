@@ -1,4 +1,4 @@
-import { ArchiveCharges } from '../components/Archive';
+import { ArchiveCharges } from '../components/archiveCharge';
 import NavBar from '../components/navBar';
 
 const Archive = () => {
