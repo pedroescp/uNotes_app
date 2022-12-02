@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
-import { AuthContext } from '../contents/auth/';
 import { HtmlHTMLAttributes, useContext, useState } from 'react';
+import { AuthContext } from '../contents/auth/';
 import * as Yup from 'yup';
 import api from '../utils/api';
 
@@ -36,9 +36,8 @@ export function RegisterContainer(props: props) {
         .required('Senha não informada.'),
     }),
     onSubmit: (values) => {
-      console.log('🐒 - values', values);
       setLoading(true);
-      const dataResponse = {
+      const registerModel = {
         login: values.usuario,
         nome: values.usuario,
         email: values.email,
@@ -47,18 +46,28 @@ export function RegisterContainer(props: props) {
       };
 
       api
-        .usuarioRegs(dataResponse)
+        .usuarioRegs(registerModel)
         .then((res) => {
-          console.log('🐒 - res', res);
-          if (res.statusText !== 'Created') {
-            return;
+          if (res && res.status === 201) {
+            const loginModel = {
+              emailLogin: values.usuario,
+              senha: values.senha,
+            };
+
+            api
+              .usuarioAuth(loginModel)
+              .then((loginRes) => {
+                if (loginRes && loginRes.status === 200) {
+                  login(loginRes.data.data.nome, loginRes.data.data.email, values.senha);
+                }
+              })
+              .finally(() => {
+                setLoading(false);
+              });
           }
         })
         .catch((err) => {
           setErrors(err.response.data.errors[0]);
-        })
-        .finally(() => {
-          setLoading(false);
         });
     },
   });
@@ -69,7 +78,16 @@ export function RegisterContainer(props: props) {
       className={'form-control w-full max-w-xl' + (props.aparece ? '' : ' hidden')}
     >
       <label htmlFor='usuario' className='label'>
-        <span className='label-text'>Usuário</span>
+        <span
+          className={
+            (errors as unknown as string)?.includes('Login')
+              ? 'label-text tooltip tooltip-open tooltip-right tooltip-error'
+              : 'label-text'
+          }
+          data-tip={errors}
+        >
+          Usuário
+        </span>
       </label>
       <input
         id='usuario'
@@ -80,15 +98,22 @@ export function RegisterContainer(props: props) {
         onBlur={formikRegister.handleBlur}
         value={formikRegister.values.usuario}
       />
-      {(formikRegister.touched.usuario && formikRegister.errors.usuario) || errors ? (
+      {formikRegister.touched.usuario && formikRegister.errors.usuario ? (
         <label className='label pb-0 pt-2 pr-0'>
-          <span className='label-text-alt text-error'>
-            {formikRegister.errors.usuario || errors}
-          </span>
+          <span className='label-text-alt text-error'>{formikRegister.errors.usuario}</span>
         </label>
       ) : null}
       <label htmlFor='email' className='label'>
-        <span className='label-text'>E-mail</span>
+        <span
+          className={
+            (errors as unknown as string)?.includes('Email')
+              ? 'label-text tooltip tooltip-open tooltip-right tooltip-error'
+              : 'label-text'
+          }
+          data-tip={errors}
+        >
+          E-mail
+        </span>
       </label>
       <input
         id='email'
@@ -99,9 +124,9 @@ export function RegisterContainer(props: props) {
         onBlur={formikRegister.handleBlur}
         value={formikRegister.values.email}
       />
-      {(formikRegister.touched.email && formikRegister.errors.email) || errors ? (
+      {formikRegister.touched.email && formikRegister.errors.email ? (
         <label className='label pb-0 pt-2 pr-0'>
-          <span className='label-text-alt text-error'>{formikRegister.errors.email || errors}</span>
+          <span className='label-text-alt text-error'>{formikRegister.errors.email}</span>
         </label>
       ) : null}
 
@@ -117,9 +142,9 @@ export function RegisterContainer(props: props) {
         onBlur={formikRegister.handleBlur}
         value={formikRegister.values.senha}
       />
-      {(formikRegister.touched.senha && formikRegister.errors.senha) || errors ? (
+      {formikRegister.touched.senha && formikRegister.errors.senha ? (
         <label className='label pb-0 pt-2 pr-0'>
-          <span className='label-text-alt text-error'>{formikRegister.errors.senha || errors}</span>
+          <span className='label-text-alt text-error'>{formikRegister.errors.senha}</span>
         </label>
       ) : null}
 
@@ -135,11 +160,9 @@ export function RegisterContainer(props: props) {
         onBlur={formikRegister.handleBlur}
         value={formikRegister.values.repeteSenha}
       />
-      {(formikRegister.touched.repeteSenha && formikRegister.errors.repeteSenha) || errors ? (
+      {formikRegister.touched.repeteSenha && formikRegister.errors.repeteSenha ? (
         <label className='label pb-0 pt-2 pr-0'>
-          <span className='label-text-alt text-error'>
-            {formikRegister.errors.repeteSenha || errors}
-          </span>
+          <span className='label-text-alt text-error'>{formikRegister.errors.repeteSenha}</span>
         </label>
       ) : null}
 

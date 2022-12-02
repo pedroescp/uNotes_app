@@ -22,13 +22,15 @@ export function ProfileNavbar({ children }: LayoutProps) {
     <>
       <div className={classes()} tabIndex={0}>
         <div className='flex gap-2 cursor-pointer'>
-          <label className='btn btn-ghost btn-circle avatar'>
+          <label className='btn btn-ghost btn-circle avatar online'>
             <div className='w-10 rounded-full'>
               <img src='https://placeimg.com/80/80/people' />
             </div>
           </label>
           <span className='text-start '>
-            <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
+            <span className='text-lg line-clamp-1 w-32'>
+              {String(JSON.parse(localStorage.getItem('user')).user)}
+            </span>
             <p className='text-xs capitalize'>Desenvolvedor</p>
           </span>
         </div>
