@@ -3,6 +3,7 @@ import { HtmlHTMLAttributes, useContext, useState } from 'react';
 import { AuthContext } from '../contents/auth/';
 import * as Yup from 'yup';
 import api from '../utils/api';
+import { LoadingButton } from './loadingButton';
 
 interface props extends HtmlHTMLAttributes<HTMLHtmlElement> {
   aparece: boolean;
@@ -167,13 +168,7 @@ export function RegisterContainer(props: props) {
       ) : null}
 
       <div className='flex flex-col items-center mt-5'>
-        <button
-          type='submit'
-          onClick={() => formikRegister.submitForm}
-          className='btn btn-primary btn-wide'
-        >
-          Registrar e entrar!
-        </button>
+        <LoadingButton msg='Registrar e entrar!' loading={loading} />
       </div>
     </form>
   );
