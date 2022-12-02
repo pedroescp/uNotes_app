@@ -1,10 +1,10 @@
+import { ArchiveCharges } from '../components/archiveCharge';
 import NavBar from '../components/navBar';
-import { NotesCharges } from '../components/notesCharge';
 
 const Archive = () => {
   return (
     <NavBar>
-      <NotesCharges type={'arhive'} />
+      <ArchiveCharges type={'arhive'} />
     </NavBar>
   );
 };

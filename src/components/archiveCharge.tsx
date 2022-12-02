@@ -7,45 +7,24 @@ interface Parameters {
   type: string;
 }
 
-export function NotesCharges({ type }: Parameters) {
+export function ArchiveCharges({ type }: Parameters) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
-  const [notes, setNotes] = useState([]);
+  const [notes, setArchive] = useState([]);
   const [note, setOnlyNote] = useState([]);
 
   useEffect(() => {
-    async function getNotes() {
+    async function getArchive() {
       //make a filter
-      const response = await api.notesGet();
-      setNotes(response.data);
+      const response = await api.archivehGet();
+      setArchive(response.data);
     }
-    getNotes();
+    getArchive();
   }, []);
 
   const openButtonRef = (note: any) => {
     setOnlyNote(note);
     setOpen(!open);
-  };
-
-  const handleOnNotesModalClose = ({ title, text }: any) => {
-    async function notesUpdate() {
-      //make a filter
-      await api.notesUpdate({
-        id: note['id'],
-        titulo: title,
-        texto: text,
-        criadorId: 'f0f1b37b-23ec-47ad-b777-307ace3e45ae',
-        usuarioAtualizacaoId: 'f0f1b37b-23ec-47ad-b777-307ace3e45ae',
-        documentoId: null,
-      });
-    } 
-    async function getNotes() {
-      //make a filter
-      const response = await api.notesGet();
-      setNotes(response.data);
-    }
-    notesUpdate()
-    getNotes();
   };
 
   return (
@@ -56,6 +35,8 @@ export function NotesCharges({ type }: Parameters) {
             onClick={() => openButtonRef(note)}
             key={note.id}
             id={note.id}
+            
+            
             className='w-full h-fit'
           >
             <div className='card bg-secondary text-primary-content cursor-pointer h-full'>
@@ -65,7 +46,7 @@ export function NotesCharges({ type }: Parameters) {
                     {note.titulo}
                   </h2>
                   <span className='px-2'>
-                    <Bookmark />
+                    <Bookmark key={note.bookmark} onClick={console.log(note)} />
                   </span>
                 </div>
 
@@ -88,7 +69,6 @@ export function NotesCharges({ type }: Parameters) {
         cancelButtonRef={cancelButtonRef}
         setOpen={setOpen}
         note={note}
-        onClose={handleOnNotesModalClose}
       />
     </div>
   );

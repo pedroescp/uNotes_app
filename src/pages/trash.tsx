@@ -1,10 +1,10 @@
 import NavBar from '../components/navBar';
-import { NotesCharges } from '../components/notesCharge';
+import { TrashCharges } from '../components/trashCharge';
 
 const Trash = () => {
   return (
     <NavBar>
-      <NotesCharges type={'trash'} />
+      <TrashCharges type={'trash'} />
     </NavBar>
   );
 };

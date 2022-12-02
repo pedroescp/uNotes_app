@@ -1,12 +1,26 @@
 import { useRef, useState } from 'react';
 import { Plus } from '../images/icons/icons';
+import api from '../utils/api';
 import { NotesModal } from './notesModal';
 
 export default function Notes() {
   const [open, setOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
-  const openButtonRef = () => setOpen(!open);
+  const openButtonRef = () => {
+    setOpen(!open);
+  };
+
+  const handleOnNotesModalClose = ({ title, text }: any) => {   
+     
+    api.notesPost({
+      titulo: title,
+      texto: text,
+      criadorId: "f0f1b37b-23ec-47ad-b777-307ace3e45ae",
+      usuarioAtualizacaoId: "f0f1b37b-23ec-47ad-b777-307ace3e45ae",
+      documentoId: null,
+    });
+  };
 
   return (
     <div className='h-full w-full'>
@@ -18,7 +32,12 @@ export default function Notes() {
           <Plus />
         </button>
       </div>
-      <NotesModal open={open} cancelButtonRef={cancelButtonRef} setOpen={setOpen} />
+      <NotesModal
+        open={open}
+        cancelButtonRef={cancelButtonRef}
+        setOpen={setOpen}
+        onClose={handleOnNotesModalClose}
+      />
     </div>
   );
 }
