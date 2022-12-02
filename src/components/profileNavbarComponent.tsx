@@ -28,7 +28,9 @@ export function ProfileNavbar({ children }: LayoutProps) {
             </div>
           </label>
           <span className='text-start '>
-            <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
+            <span className='text-lg line-clamp-1 w-32'>
+              {String(JSON.parse(localStorage.getItem('user')).user)}
+            </span>
             <p className='text-xs capitalize'>Desenvolvedor</p>
           </span>
         </div>
