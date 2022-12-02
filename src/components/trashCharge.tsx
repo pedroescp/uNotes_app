@@ -35,8 +35,6 @@ export function TrashCharges({ type }: Parameters) {
             onClick={() => openButtonRef(note)}
             key={note.id}
             id={note.id}
-            
-            
             className='w-full h-fit'
           >
             <div className='card bg-secondary text-primary-content cursor-pointer h-full'>
@@ -46,7 +44,10 @@ export function TrashCharges({ type }: Parameters) {
                     {note.titulo}
                   </h2>
                   <span className='px-2'>
-                    <Bookmark key={note.bookmark} onClick={console.log(note)} />
+                    <Bookmark
+                      key={note.bookmark}
+                      onClick={console.warn('PEDRO PARA DE COMMITAR COM CONSOLE.LOGKKKKKKK')}
+                    />
                   </span>
                 </div>
 
@@ -64,12 +65,7 @@ export function TrashCharges({ type }: Parameters) {
           </div>
         ))}
       </div>
-      <NotesModal
-        open={open}
-        cancelButtonRef={cancelButtonRef}
-        setOpen={setOpen}
-        note={note}
-      />
+      <NotesModal open={open} cancelButtonRef={cancelButtonRef} setOpen={setOpen} note={note} />
     </div>
   );
 }
