@@ -1,74 +1,22 @@
 # uNotes
 
-**Banco de dados:** 
- - Usuario
-   - Id
-   - Nickname
-   - Login
-   - Senha
-   - Email
-   - Avatar
-   - Telefone
-   - CargoId
-   - DataInclusao
-   - UsuarioPaiId
-  
- - Cargo
-   - Id
-   - Nome
-   - Descricao
-  
- - Grupo
-   - Id
-   - Nome
-  
- - UsuarioGrupo
-   - Id
-   - UsuarioId
-   - GrupoId
-   - DataInclusao
-   - DataExclusao
-  
- - Notes
-   - Id
-   - Titulo
-   - Texto 10000
-   - CriadorId
-   - Estado: Enum
-   - DataInclusao
-   - DataAtualizacao
-   - DataExclusão
-   - UsuarioAtualizacaoId
-   - DocumentoId
-   
- - Tags
-   - Id
-   - UsuarioId
-   - Nome
-   
- - TagsNotas
-   - Id
-   - NotaId
-   - TagId
-  
- - Colaboradores
-   - Id
-   - UsuarioId
-   - NotaId
-   - DocumentoId
-   - Status [Pendente, Aceito, Negado]
-  
- - Documento
-   - Id
-   - Titulo
-   - Texto 50000
-   - CriadorId
-   - Lixeira bit
-   - DataInclusao
-   - DataAtualizacao
-   - UsuarioAtualizacaoId
+## Table of contents
 
-Estudar: https://quilljs.com/
+To install this project use npm 
+```md
+npm install
+```
+
+and next this use for running 
+```md 
+npm run dev
+```
+
+For use this project need another project API of [Untoes](https://github.com/pedroescp/uNote_api) here you can git clone the project and running.
+
+finnaly the database, this project use the database [PostgreSQL](https://www.postgresql.org/) 
+
+we use the [Quiljs](https://quilljs.com/) for make and format the notes into app
 
 
 **Front:**
