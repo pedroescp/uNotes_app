@@ -63,7 +63,7 @@ const api = {
     return request;
   },
 
-  trashGet: async (data: any) => {
+  trashGet: async () => {
     const result = await axios.get('notes/obter-por-usuario-lixeira',   {
       headers,
     });
