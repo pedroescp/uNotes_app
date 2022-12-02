@@ -39,8 +39,10 @@ const NavBar = ({ children }: Props) => {
                 <img src='https://placeimg.com/80/80/people' />
               </div>
             </label>
-            <span className='text-start'>
-              <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
+            <span className='text-start line-clamp-1 w-32'>
+              <span className='text-lg'>
+                {String(JSON.parse(localStorage.getItem('user')).user)}
+              </span>
               <p className='text-xs capitalize'>Desenvolvedor</p>
             </span>
           </div>
@@ -138,7 +140,9 @@ const NavBar = ({ children }: Props) => {
                 </div>
               </div>
               <span className='text-start'>
-                <span className='text-lg'>{String(JSON.parse(localStorage.getItem('user')).user)}</span>
+                <span className='text-lg line-clamp-1 w-52'>
+                  {String(JSON.parse(localStorage.getItem('user')).user)}
+                </span>
                 <p className='text-xs capitalize'>Desenvolvedor</p>
               </span>
               <ul
