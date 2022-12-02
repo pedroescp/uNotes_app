@@ -24,16 +24,16 @@ const api = {
     return request;
   },
 
-  notesPost: async (data: any) => {    
+  notesPost: async (data: any) => {
     const result = await axios.post('notes', data, {
       headers,
     });
     return result.data;
   },
 
-  notesUpdate: async (data: any) => {    
+  notesUpdate: async (data: any) => {
     console.log(data);
-    
+
     const result = await axios.put('notes', data, {
       headers,
     });
@@ -41,7 +41,7 @@ const api = {
   },
 
   notesGet: async () => {
-    const result = await axios.get('notes', { headers });
+    const result = await axios.get('notes/obter-por-usuario', { headers });
     return result.data;
   },
 
@@ -61,6 +61,18 @@ const api = {
       url: 'usuario',
     });
     return request;
+  },
+
+  trashGet: async (data: any) => {
+    const result = await axios.get('notes/obter-por-usuario-lixeira',   {
+      headers,
+    });
+    return result.data;
+  },
+
+  archivehGet: async () => {
+    const result = await axios.get('notes/obter-por-usuario-arquivado', { headers });
+    return result.data;
   },
 };
 
