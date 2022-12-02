@@ -4,6 +4,7 @@ import {
   ExitMarkIcon,
   HamburgerIcon,
   LogoutIcon,
+  NoteIcon,
   SearchIcon,
   TrashIcon,
   UserIcon,
@@ -106,6 +107,12 @@ const NavBar = ({ children }: Props) => {
             <a onClick={() => navigate('/home')}>
               <ArrowBack />
               Home
+            </a>
+          </li>
+          <li>
+            <a onClick={() => navigate('/note')}>
+              <NoteIcon />
+              Notas
             </a>
           </li>
           <li>
