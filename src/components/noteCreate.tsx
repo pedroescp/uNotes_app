@@ -3,7 +3,11 @@ import { Plus } from '../images/icons/icons';
 import api from '../utils/api';
 import { NotesModal } from './notesModal';
 
-export default function Notes() {
+interface Parameters {
+  onClose?: () => void;
+}
+
+export default function Notes({ onClose }: Parameters) {
   const [open, setOpen] = useState(false);
 
   const cancelButtonRef = useRef(null);
@@ -11,15 +15,19 @@ export default function Notes() {
     setOpen(!open);
   };
 
-  const handleOnNotesModalClose = ({ title, text }: any) => {   
-     
-    api.notesPost({
+  const handleOnNotesModalClose = async ({ title, text }: any) => {
+    if (!title || !text) {
+      return;
+    }
+
+    await api.notesPost({
       titulo: title,
       texto: text,
-      criadorId: "f0f1b37b-23ec-47ad-b777-307ace3e45ae",
-      usuarioAtualizacaoId: "f0f1b37b-23ec-47ad-b777-307ace3e45ae",
+      criadorId: null,
+      usuarioAtualizacaoId: null,
       documentoId: null,
     });
+    !!onClose && onClose();
   };
 
   return (
