@@ -2,6 +2,7 @@ import {
   ArchiveIcon,
   ArrowBack,
   ExitMarkIcon,
+  Group,
   HamburgerIcon,
   LogoutIcon,
   NoteIcon,
@@ -127,6 +128,12 @@ const NavBar = ({ children }: Props) => {
             <a onClick={() => navigate('/trash')}>
               <TrashIcon />
               Lixeira
+            </a>
+          </li>
+          <li>
+            <a onClick={() => navigate('/group')}>
+              <Group/>
+              Grupo
             </a>
           </li>
           <li className='mt-auto'>

@@ -1,10 +1,8 @@
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import api from '../utils/api';
 import { AuthContext } from '../contents/auth/';
 import { useContext, useState } from 'react';
-import { LoadingIcon } from '../images/icons/icons';
 import { LoadingButton } from './loadingButton';
 
 export function LoginContainer() {
