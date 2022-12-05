@@ -222,9 +222,17 @@
 }
 
 .ql-delete {
-  color: #303030;
+  color: #303030 !important;
 }
 
-.ql-delete:hover {
-  color: #06c;
+.ql-archive{
+  color: #303030 !important;
+}
+
+.ql-delete:hover  {
+  color: #06c !important;
+}
+
+.ql-archive:hover{
+  color: #06c !important;
 }
