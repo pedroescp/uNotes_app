@@ -66,10 +66,20 @@ const api = {
       headers,
     });
     return result.data;
+  },  
+
+  trashPost: async (data:any) => {   
+    const result = await axios.delete('notes?notaId='+data, {headers});
+    return result.data;
   },
 
   archivehGet: async () => {
     const result = await axios.get('notes/obter-por-usuario-arquivado', { headers });
+    return result.data;
+  },
+
+  archivePost: async (data:any) => {   
+    const result = await axios.delete('notes/arquivar?notaId='+data, {headers});
     return result.data;
   },
 };
