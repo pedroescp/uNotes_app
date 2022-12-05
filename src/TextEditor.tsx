@@ -89,8 +89,6 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
         api.archivePost(note.id);
       },
     },
-
-    // [{ delete: }],
   };
   //configure the lib and the wrapper the content in
   const wrapperRef = useCallback((wrapper: any) => {
