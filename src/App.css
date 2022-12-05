@@ -132,8 +132,7 @@
   background-color: rgba(255, 255, 255, 0.3);
   background-clip: padding-box;
   border: solid transparent;
-  -webkit-box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%),
-    inset 0 -1px 0 rgb(0 0 0 / 7%);
+  -webkit-box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7%);
   box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7%);
   border-radius: 10px;
 }
@@ -144,7 +143,7 @@
   border-width: 0;
 }
 
-.ql-editor ul[data-checked="false"] > li::before {
+.ql-editor ul[data-checked='false'] > li::before {
   --chkbg: var(--p);
   --chkfg: var(--pc);
   --tw-border-opacity: 1;
@@ -160,7 +159,7 @@
   border-radius: 25%;
 }
 
-.ql-editor ul[data-checked="true"] > li::before {
+.ql-editor ul[data-checked='true'] > li::before {
   --chkbg: var(--p);
   --chkfg: var(--pc);
   --tw-border-opacity: 1;
@@ -184,11 +183,7 @@
   --tw-bg-opacity: 1;
   background-color: hsl(var(--bc) / var(--tw-bg-opacity));
   background-repeat: no-repeat;
-  background-image: linear-gradient(
-      -45deg,
-      transparent 65%,
-      hsl(var(--chkbg)) 65.99%
-    ),
+  background-image: linear-gradient(-45deg, transparent 65%, hsl(var(--chkbg)) 65.99%),
     linear-gradient(45deg, transparent 75%, hsl(var(--chkbg)) 75.99%),
     linear-gradient(-45deg, hsl(var(--chkbg)) 40%, transparent 40.99%),
     linear-gradient(
@@ -208,20 +203,28 @@
   padding-left: 0 !important;
 }
 
-.ql-editor ul[data-checked="true"] > li::before,
-.ql-editor ul[data-checked="false"] > li::before {
+.ql-editor ul[data-checked='true'] > li::before,
+.ql-editor ul[data-checked='false'] > li::before {
   color: transparent !important;
 }
 
-.ql-editor li:not(.ql-direction-rtl)::before{
+.ql-editor li:not(.ql-direction-rtl)::before {
   margin-right: 0.4em !important;
   text-align: center !important;
 }
 
-.card_preview-text > p{
+.card_preview-text > p {
   display: -webkit-box;
   -webkit-line-clamp: 18;
   -webkit-box-orient: vertical;
   overflow: hidden !important;
   padding: 0;
+}
+
+.ql-delete {
+  color: #303030;
+}
+
+.ql-delete:hover {
+  color: #06c;
 }

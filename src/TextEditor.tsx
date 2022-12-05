@@ -9,17 +9,10 @@ import {
 import 'quill/dist/quill.snow.css';
 import Quill from 'quill';
 import { io } from 'socket.io-client';
-import { Bookmark } from './images/icons/icons';
-
+import { Bookmark, TrashIconQuill } from './images/icons/icons';
+var icons = Quill.import('ui/icons');
+icons['delete'] = TrashIconQuill();
 //header of the lib
-const TOOLBAR_OPTIONS = [
-  /* [{ header: [1, 2, 3, 4, 5, 6, false] }], */
-  /* [{ font: [] }], */
-  /* ["bold", "italic", "underline"], */
-  /* [{ list: "ordered" }, { list: "bullet" }, { list: "check" }], */
-  /* [{ color: [] }, { background: [] }], */
-  /* ["code-block"], */
-];
 
 interface Parameters {
   note: any;
@@ -74,6 +67,24 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
     };
   }, []); */
 
+  // OPTIONS
+  const TOOLBAR_OPTIONS = {
+    container: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      ['bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+      [{ color: [] }, { background: [] }],
+      [{ delete: 'delete' }],
+    ],
+    handlers: {
+      delete: () => {
+        console.log(note.id);
+      },
+    },
+
+    // [{ delete: }],
+  };
   //configure the lib and the wrapper the content in
   const wrapperRef = useCallback((wrapper: any) => {
     if (wrapper == null) return;
@@ -82,8 +93,8 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
     const editor = document.createElement('div');
     wrapper.append(editor);
     const q = new Quill(editor, {
-      /*       theme: "snow",
-      modules: { toolbar: TOOLBAR_OPTIONS }, */
+      theme: 'snow',
+      modules: { toolbar: TOOLBAR_OPTIONS },
       placeholder: 'Escrever uma nota',
     });
     if (note && note.texto) q.setText(note?.texto);
