@@ -9,9 +9,11 @@ import {
 import 'quill/dist/quill.snow.css';
 import Quill from 'quill';
 import { io } from 'socket.io-client';
-import { Bookmark, TrashIconQuill } from './images/icons/icons';
+import { ArchiveIconQuill, Bookmark, TrashIconQuill } from './images/icons/icons';
+import api from './utils/api';
 var icons = Quill.import('ui/icons');
 icons['delete'] = TrashIconQuill();
+icons['archive'] = ArchiveIconQuill();
 //header of the lib
 
 interface Parameters {
@@ -70,16 +72,21 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
   // OPTIONS
   const TOOLBAR_OPTIONS = {
     container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      /*       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       [{ font: [] }],
       ['bold', 'italic', 'underline'],
       [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-      [{ color: [] }, { background: [] }],
+      [{ color: [] }, { background: [] }], */
       [{ delete: 'delete' }],
+      [{ archive: 'archive' }],
     ],
     handlers: {
       delete: () => {
-        console.log(note.id);
+        api.trashPost(note.id);
+      },
+
+      archive: () => {
+        api.archivePost(note.id);
       },
     },
 
