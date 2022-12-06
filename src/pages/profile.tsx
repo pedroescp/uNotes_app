@@ -17,7 +17,10 @@ const Profile = () => {
               <h2 className='card-title'>
                 Hello {String(JSON.parse(localStorage.getItem('user')).user)}
               </h2>
+              <p>Nickname: {String(JSON.parse(localStorage.getItem('user')).user)}</p>
               <p>Email: {String(JSON.parse(localStorage.getItem('user')).email)}</p>
+              <p>Telefone: (99) 9999-999 </p>
+              <p>Cargo: Desenvolvedor </p>
             </div>
           </div>
         </div>
