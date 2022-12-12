@@ -82,6 +82,7 @@ const api = {
     const result = await axios.delete('notes/arquivar?notaId=' + data, { headers });
     return result.data;
   },
+
   usuarioGet: async () => {
     const result = await axios.get('usuario/obter-por-id', { headers });
     return result.data;

@@ -63,8 +63,9 @@ export function NotesCharges({ type }: Parameters) {
         className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'
       >
         <div className='columns-2 md:columns-3 lg:columns-4 mt-20'>
-          {loading && <SkeletonNotes />}
-          {!loading &&
+          {loading ? (
+            <SkeletonNotes />
+          ) : (
             notes.map((note: any) => (
               <div
                 onClick={() => openButtonRef(note)}
@@ -95,7 +96,8 @@ export function NotesCharges({ type }: Parameters) {
                   </div>
                 </div>
               </div>
-            ))}
+            ))
+          )}
         </div>
         <NotesModal
           open={open}
