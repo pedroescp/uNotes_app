@@ -9,6 +9,9 @@ module.exports = {
       transitionProperty: {
         text: 'font-size;',
       },
+      animation: {
+        wiggle: 'wiggle 1s ease-in-out infinite',
+      }
     },
   },
   plugins: [require('daisyui'), require('@tailwindcss/line-clamp')],
