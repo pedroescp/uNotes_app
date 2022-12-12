@@ -3,6 +3,7 @@ import { Bookmark } from '../images/icons/icons';
 import { NotesModal } from './notesModal';
 import NotesFAB from '../components/noteCreate';
 import api from '../utils/api';
+import { NoteInterface } from '../classes/Note';
 
 interface Parameters {
   type: string;
@@ -12,7 +13,7 @@ export function NotesCharges({ type }: Parameters) {
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
   const [notes, setNotes] = useState([]);
-  const [note, setOnlyNote] = useState([]);
+  const [note, setOpenedNote] = useState<NoteInterface | undefined>(undefined);
 
   useEffect(() => {
     async function getNotes() {
@@ -24,15 +25,19 @@ export function NotesCharges({ type }: Parameters) {
   }, []);
 
   const openButtonRef = (note: any) => {
-    setOnlyNote(note);
+    setOpenedNote(note);
     setOpen(true);
   };
 
   const handleOnNotesModalClose = async ({ title, text }: any) => {
     setOpen(false);
 
+    if (note?.titulo === title && note?.texto === text) {
+      return;
+    }
+
     await api.notesUpdate({
-      id: note['id'],
+      id: note?.id,
       titulo: title,
       texto: text,
     });

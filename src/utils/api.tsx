@@ -66,10 +66,10 @@ const api = {
       headers,
     });
     return result.data;
-  },  
+  },
 
-  trashPost: async (data:any) => {   
-    const result = await axios.delete('notes?notaId='+data, {headers});
+  trashPost: async (data: any) => {
+    const result = await axios.delete('notes?notaId=' + data, { headers });
     return result.data;
   },
 
@@ -78,8 +78,8 @@ const api = {
     return result.data;
   },
 
-  archivePost: async (data:any) => {   
-    const result = await axios.delete('notes/arquivar?notaId='+data, {headers});
+  archivePost: async (data: any) => {
+    const result = await axios.delete('notes/arquivar?notaId=' + data, { headers });
     return result.data;
   },
 };

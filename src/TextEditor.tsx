@@ -11,13 +11,14 @@ import Quill from 'quill';
 import { io } from 'socket.io-client';
 import { ArchiveIconQuill, Bookmark, TrashIconQuill } from './images/icons/icons';
 import api from './utils/api';
+import { NoteInterface } from './classes/Note';
 var icons = Quill.import('ui/icons');
 icons['delete'] = TrashIconQuill();
 icons['archive'] = ArchiveIconQuill();
 //header of the lib
 
 interface Parameters {
-  note: any;
+  note: NoteInterface;
 }
 
 const TextEditor = forwardRef(({ note }: Parameters, ref) => {
@@ -87,6 +88,7 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
 
       archive: () => {
         api.archivePost(note.id);
+        note.status = '3';
       },
     },
   };
@@ -104,6 +106,14 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
     });
     if (note && note.texto) q.setText(note?.texto);
     setQuill(q);
+    setTimeout(() => {
+      const delet = document.getElementsByClassName('ql-delete')[0];
+      const archive = document.getElementsByClassName('ql-archive')[0];
+      delet.classList.add('tooltip');
+      archive.classList.add('tooltip');
+      delet.setAttribute('data-tip', 'Deletar');
+      archive.setAttribute('data-tip', 'Arquivar');
+    }, 100);
   }, []);
 
   const getValue = () => {
