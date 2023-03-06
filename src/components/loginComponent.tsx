@@ -62,6 +62,7 @@ export function LoginContainer() {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values.usuario}
+        autoFocus
       />
       {(formik.touched.usuario && formik.errors.usuario) || errors ? (
         <label className='label pb-0 pt-2 pr-0'>
