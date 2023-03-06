@@ -10,6 +10,7 @@ import Profile from './pages/profile';
 import Trash from './pages/trash';
 import { AuthProvider, AuthContext } from './contents/auth';
 import { useContext } from 'react';
+import Document from './pages/document';
 
 function App() {
   const Private = ({ children }) => {
@@ -43,6 +44,14 @@ function App() {
           element={
             <Private>
               <Note />
+            </Private>
+          }
+        />
+        <Route
+          path='/document'
+          element={
+            <Private>
+              <Document />
             </Private>
           }
         />
