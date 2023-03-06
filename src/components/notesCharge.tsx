@@ -4,6 +4,7 @@ import { NotesModal } from './notesModal';
 import NotesFAB from '../components/noteCreate';
 import api from '../utils/api';
 import { SkeletonNotes } from './skeletonNotes';
+import { Empty } from './Empty';
 
 interface Parameters {
   type: string;
@@ -15,13 +16,18 @@ export function NotesCharges({ type }: Parameters) {
   const [notes, setNotes] = useState([]);
   const [note, setOnlyNote] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showEmpty, setShowEmpty] = useState(false);
 
   useEffect(() => {
     async function getNotes() {
       //make a filter
       const response = await api.notesGet();
       setNotes(response.data);
-        setLoading(false);
+      if (response.data == '') {
+        setShowEmpty(true);
+      }
+      
+      setLoading(false);
     }
     getNotes();
   }, []);
@@ -42,13 +48,19 @@ export function NotesCharges({ type }: Parameters) {
 
     const newNotes = await api.notesGet();
     setNotes(newNotes.data);
+    if(newNotes.data == "") {
+      setShowEmpty(true);    
+    }
+    
   };
 
   const handleOnNotesCreate = async () => {
     setOpen(false);
     const newNotes = await api.notesGet();
     setNotes(newNotes.data);
+    setShowEmpty(false);      
   };
+
 
   return (
     <>
@@ -57,9 +69,9 @@ export function NotesCharges({ type }: Parameters) {
         data-aos-anchor-placement='top-center'
         className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'
       >
-        <div className='columns-2 md:columns-3 lg:columns-4 mt-20'>
-          
+        <div className={`mt-20 ${showEmpty ? 'flex justify-center items-center flex-direction-column' : 'columns-2 md:columns-3 lg:columns-4'}`} >
           {loading && <SkeletonNotes />}
+          {showEmpty && <Empty />}
           {!loading &&
             notes.map((note: any) => (
               <div
@@ -68,7 +80,7 @@ export function NotesCharges({ type }: Parameters) {
                 id={note.id}
                 className='w-full h-fit'
               >
-                <div className='card bg-secondary text-primary-content cursor-pointer relative mb-4'>
+                <div className='card card-glass  cursor-pointer relative mb-4'>
                   <div className='card-body p-4'>
                     <div className='flex'>
                       <h2 className='card-title pl-2 justify-between w-[90%] break-all'>

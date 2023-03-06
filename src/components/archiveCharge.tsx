@@ -3,6 +3,7 @@ import { Bookmark } from '../images/icons/icons';
 import { NotesModal } from './notesModal';
 import api from '../utils/api';
 import { SkeletonNotes } from './skeletonNotes';
+import { Empty } from './Empty';
 
 interface Parameters {
   type: string;
@@ -14,12 +15,16 @@ export function ArchiveCharges({ type }: Parameters) {
   const [notes, setArchive] = useState([]);
   const [note, setOnlyNote] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showEmpty, setShowEmpty] = useState(false);
 
   useEffect(() => {
     async function getArchive() {
       //make a filter
       const response = await api.archivehGet();
       setArchive(response.data);
+      if (response.data == '') {
+        setShowEmpty(true);
+      }
       setLoading(false)
     }
     getArchive();
@@ -36,8 +41,9 @@ export function ArchiveCharges({ type }: Parameters) {
       data-aos-anchor-placement='top-center'
       className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'
     >
-      <div className='columns-2 md:columns-3 lg:columns-4 mt-20'>
+      <div className={`mt-20 ${showEmpty ? 'flex justify-center items-center flex-direction-column' : 'columns-2 md:columns-3 lg:columns-4'}`} >
         {loading && <SkeletonNotes />}
+        {showEmpty && <Empty />}
         {!loading &&
           notes.map((note: any) => (
             <div
@@ -46,7 +52,7 @@ export function ArchiveCharges({ type }: Parameters) {
               id={note.id}
               className='w-full h-fit'
             >
-              <div className='card bg-secondary text-primary-content cursor-pointer relative mb-4'>
+              <div className='card bg-secondary card-glass text-primary-content cursor-pointer relative mb-4'>
                 <div className='card-body p-4'>
                   <div className='flex'>
                     <h2 className='card-title pl-2 justify-between w-[90%] break-all'>
