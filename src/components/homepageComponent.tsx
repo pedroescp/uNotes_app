@@ -16,7 +16,7 @@ export function HomePage() {
 						</span>
 					</div>
 
-					<div className='card max-w-md max-h-96 w-full h-full border-primary transition-all hover:shadow-[inset_0px_0px_25px_5px_rgb(0_160_196_/_0.3)] active:shadow-[inset_0px_0px_25px_5px_rgb(0_160_196_/_0.3)] border-2 text-primary'>
+					<div onClick={() => navigate('/document')}  className='card max-w-md max-h-96 w-full h-full border-primary transition-all hover:shadow-[inset_0px_0px_25px_5px_rgb(0_160_196_/_0.3)] active:shadow-[inset_0px_0px_25px_5px_rgb(0_160_196_/_0.3)] border-2 text-primary'>
 						<span className='grid place-items-center h-full text-center transition-all text-3xl hover:scale-125 active:scale-125 select-none cursor-pointer'>
 							Documentos
 						</span>
