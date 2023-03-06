@@ -26,7 +26,7 @@ const Profile = () => {
                         <figure className='px-10 pt-10'>
                             <div className='avatar online'>
                                 <div className='w-24 rounded-full'>
-                                    <img src='https://placeimg.com/192/192/people' />
+                                    {/* <img src='src\images\icons\' /> */}
                                 </div>
                             </div>
                         </figure>
