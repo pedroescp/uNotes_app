@@ -225,14 +225,28 @@
   color: #303030 !important;
 }
 
-.ql-archive{
+.ql-archive {
   color: #303030 !important;
 }
 
-.ql-delete:hover  {
+.ql-delete:hover {
   color: #06c !important;
 }
 
-.ql-archive:hover{
+.ql-archive:hover {
   color: #06c !important;
+}
+
+.card-glass {
+  color: #303030;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.flex-direction-column{
+  flex-direction: column;
 }
