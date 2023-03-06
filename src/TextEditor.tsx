@@ -123,7 +123,7 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
 
   return (
     <>
-      <div className='flex justify-between items-center pt-5 mb-0.5 title-note'>
+      <div className='flex justify-between items-center pt-5 title-note mb-8'>
         <input
           ref={inputTitleRef}
           type='text'
