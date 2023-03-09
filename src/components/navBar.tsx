@@ -5,6 +5,7 @@ import {
   ExitMarkIcon,
   Group,
   HamburgerIcon,
+  Home,
   LogoutIcon,
   NoteIcon,
   SearchIcon,
@@ -15,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { ExitSiteMesssage } from './exitSite';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
-import { ReactNode } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -24,6 +25,11 @@ interface Props {
 const NavBar = ({ children }: Props) => {
   const { height, width } = useWindowDimensions();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
 
   function classes(): string {
     return width < 1024
@@ -31,52 +37,120 @@ const NavBar = ({ children }: Props) => {
       : 'fixed flex items-center rounded-2xl dropdown h-20 px-8 bg-base-300 dropdown z-2 mt-4 mr-4 right-0 dropdown-end z-10';
   }
 
+  function hiddenShowLabel(): string {
+    return show
+      ? 'hidden'
+      : 'btn rounded-full flex items-center  p-0 w-full max-w-[3rem] h-auto max-h-32 min-h-0 dropdown z-2 dropdown-end z-10 bg-base-200 border-none outline-none';
+  }
+
+  function hiddenShowInput(): string {
+    return show
+      ? 'input input-md px-2 w-96 rounded-full bg-base-200 transition-all focus:bg-base-100 focus:outline-none active:outline-none active:outline-0 outline-none'
+      : 'hidden';
+  }
+
+  function gap(): string {
+    return show ? 'flex h-12 w-96' : 'flex gap-6 h-12';
+  }
+
+  function widthInput() {
+    return show
+      ? 'bg-base-200 w-[20rem] mx-auto sm:w-96 p-1 rounded-full fixed z-40'
+      : 'bg-base-200 w-[17rem] p-1 rounded-full fixed z-40';
+  }
+
+  function search(){
+    return show
+    ? 'btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-32 min-h-0 drawer-button bg-base-200 border-none outline-none'
+    : 'btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-32 min-h-0 drawer-button bg-base-200 border-none outline-none';
+  }
+
+  const handleClick = () => {
+    setShow(true)
+    setIsInputFocused(true)
+  };
+
   function ProfileComponent() {
     return (
       <>
-        <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
-          <div className='w-10 rounded-full'>
-            {/* <img src='src\images\icons\' /> */}
-          </div>
-        </label>
-        <ul
-          tabIndex={0}
-          className='mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52'
-        >
-          <li>
-            <a onClick={() => navigate('/profile')}>
-              <UserIcon />
-              Perfil
-              <span className='badge'>New</span>
-            </a>
-          </li>
-          <li>
-            <label htmlFor='exit-site'>
-              <LogoutIcon />
-              Sair
+        <div className={classes()} tabIndex={0}>
+          <div className='flex gap-2 cursor-pointer'>
+            <label className='btn btn-ghost btn-circle avatar online'>
+              <div className='w-10 rounded-full'>
+                <img src='https://placeimg.com/80/80/people' />
+              </div>
             </label>
-          </li>
-        </ul>
-
-        <ExitSiteMesssage htmlFor='exit-site' />
+            <span className='text-start line-clamp-1 w-32'>
+              <span className='text-lg'>
+                {String(JSON.parse(localStorage.getItem('user')).user)}
+              </span>
+              <p className='text-xs capitalize'>Desenvolvedor</p>
+            </span>
+          </div>
+          <ul
+            tabIndex={0}
+            className='menu dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52 lg:mt-52'
+          >
+            <li>
+              <a onClick={() => navigate('/profile')}>
+                <UserIcon />
+                Perfil
+              </a>
+            </li>
+            <li>
+              <label htmlFor='exit-site'>
+                <LogoutIcon />
+                Sair
+              </label>
+            </li>
+          </ul>
+        </div>
       </>
     );
   }
 
   function SearchComponent() {
     return (
-      <div className='menu menu-horizontal px-1'>
-        <div className='bg-base-200 w-full mx-auto sm:w-1/2 md:w-3/4 lg:w-96 p-1 rounded-full'>
-          <div className='flex gap-2'>
-            <input
-              type='text'
-              placeholder='Toque para filtrar notas'
-              className='input input-sm px-2 w-full rounded-full bg-base-200 transition-all focus:input-md focus:bg-base-100 focus:outline-none active:outline-none active:outline-0'
-            />
-            <button className='btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-12 min-h-0 drawer-button hidden sm:flex'>
-              <SearchIcon />
-            </button>
-          </div>
+      <div className={widthInput()}>
+        <div className={gap()}>
+          <label htmlFor='menu-lateral' className={hiddenShowLabel()}>
+            <HamburgerIcon />
+          </label>
+
+          <button
+            onClick={() =>  handleClick()}
+            className={search()}
+          >
+            <SearchIcon />
+          </button>
+
+          <label className={hiddenShowLabel()} onClick={() => navigate('/home')}>
+            <Home />
+          </label>
+
+          <input type='text' placeholder='Toque para filtrar notas' className={hiddenShowInput()} ref={inputRef} autoFocus={isInputFocused} />
+
+          <label className={hiddenShowLabel()} tabIndex={0}>
+            <UserIcon />
+
+            <ul
+              tabIndex={0}
+              className='menu dropdown-content p-2 shadow bg-base-300 rounded-box w-52 mt-44 lg:mt-44'
+            >
+              <li>
+                <a onClick={() => navigate('/profile')}>
+                  <UserIcon />
+                  Perfil
+                </a>
+              </li>
+              <li>
+                <label htmlFor='exit-site'>
+                  <LogoutIcon />
+                  Sair
+                </label>
+              </li>
+            </ul>
+          </label>
         </div>
       </div>
     );
@@ -177,27 +251,10 @@ const NavBar = ({ children }: Props) => {
       <div className='drawer'>
         <input id='menu-lateral' type='checkbox' className='drawer-toggle' />
 
-        <div className='drawer-content flex flex-col xl:items-center'>
-          <div className='navbar bg-base-100'>
-            <div className='navbar-start'>
-              <label
-                htmlFor='menu-lateral'
-                className='btn btn-square btn-ghost'
-              >
-                <HamburgerIcon />
-              </label>
-              <a className='btn btn-ghost normal-case text-xl' onClick={() => navigate('/home')}>
-                Notes Hub
-              </a>
-            </div>
-            <div className='navbar-center hidden lg:flex'>{SearchComponent()}</div>
-            <div className='navbar-end'>
-              <div className='dropdown dropdown-end'>{ProfileComponent()}</div>
-            </div>
-          </div>
-           {/* Conteúdo da página */ children}
+        <div className='drawer-content flex flex-col p-4 xl:items-center'>
+          {SearchComponent()}
+          {/* Conteúdo da página */ children}
         </div>
-
         <div className='drawer-side'>{DrawerComponent()}</div>
       </div>
     </>
