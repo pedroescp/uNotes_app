@@ -125,7 +125,7 @@ const NavBar = ({ children }: Props) => {
           </button>
 
           <label className={hiddenShowLabel()} onClick={() => navigate('/home')}>
-            <Home />
+            <Home/>
           </label>
 
           <input type='text' placeholder='Toque para filtrar notas' className={hiddenShowInput()} ref={inputRef} autoFocus={isInputFocused} />
