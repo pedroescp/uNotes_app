@@ -26,10 +26,9 @@ const NavBar = ({ children }: Props) => {
   const { height, width } = useWindowDimensions();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  
+
   const [isInputFocused, setIsInputFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
 
   function classes(): string {
     return width < 1024
@@ -49,25 +48,31 @@ const NavBar = ({ children }: Props) => {
       : 'hidden';
   }
 
-  function gap(): string {
-    return show ? 'flex h-12 w-96' : 'flex gap-6 h-12';
-  }
-
   function widthInput() {
     return show
       ? 'bg-base-200 w-[20rem] mx-auto sm:w-96 p-1 rounded-full fixed z-40'
       : 'bg-base-200 w-[17rem] p-1 rounded-full fixed z-40';
   }
 
-  function search(){
+  function search() {
     return show
-    ? 'btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-32 min-h-0 drawer-button bg-base-200 border-none outline-none'
-    : 'btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-32 min-h-0 drawer-button bg-base-200 border-none outline-none';
+      ? 'btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-32 min-h-0 drawer-button bg-base-200 border-none outline-none'
+      : 'btn rounded-full p-0 w-full max-w-[3rem] h-auto max-h-32 min-h-0 drawer-button bg-base-200 border-none outline-none';
+  }
+
+  function navBar() {
+    return show
+      ? 'bg-base-200 w-fit p-1 rounded-full fixed z-40'
+      : 'bg-base-200 max-w-[17rem] w-full p-1 rounded-full fixed z-40';
+  }
+
+  function navBarSize() {
+    return show ? 'flex justify-between w-fit h-12' : 'flex justify-between w-full h-12';
   }
 
   const handleClick = () => {
-    setShow(true)
-    setIsInputFocused(true)
+    setShow(!show);
+    setIsInputFocused(!show);
   };
 
   function ProfileComponent() {
@@ -111,24 +116,28 @@ const NavBar = ({ children }: Props) => {
 
   function SearchComponent() {
     return (
-      <div className={widthInput()}>
-        <div className={gap()}>
+      <div className={navBar()}>
+        <div className={navBarSize()}>
           <label htmlFor='menu-lateral' className={hiddenShowLabel()}>
             <HamburgerIcon />
           </label>
 
-          <button
-            onClick={() =>  handleClick()}
-            className={search()}
-          >
-            <SearchIcon />
+          <button onClick={() => handleClick()} className={search()}>
+            {show && <ArrowBack />}
+            {!show && <SearchIcon />}
           </button>
 
           <label className={hiddenShowLabel()} onClick={() => navigate('/home')}>
-            <Home/>
+            <Home />
           </label>
 
-          <input type='text' placeholder='Toque para filtrar notas' className={hiddenShowInput()} ref={inputRef} autoFocus={isInputFocused} />
+          <input
+            type='text'
+            placeholder='Toque para filtrar notas'
+            className={hiddenShowInput()}
+            ref={inputRef}
+            autoFocus={isInputFocused}
+          />
 
           <label className={hiddenShowLabel()} tabIndex={0}>
             <UserIcon />
@@ -251,7 +260,7 @@ const NavBar = ({ children }: Props) => {
       <div className='drawer'>
         <input id='menu-lateral' type='checkbox' className='drawer-toggle' />
 
-        <div className='drawer-content flex flex-col p-4 xl:items-center'>
+        <div className='drawer-content flex flex-col p-4 items-center'>
           {SearchComponent()}
           {/* Conteúdo da página */ children}
         </div>
