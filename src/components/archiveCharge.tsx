@@ -20,12 +20,15 @@ export function ArchiveCharges({ type }: Parameters) {
   useEffect(() => {
     async function getArchive() {
       //make a filter
-      const response = await api.archivehGet();
-      setArchive(response.data);
-      if (response.data == '') {
-        setShowEmpty(true);
+      try {
+        const response = await api.archivehGet();
+        setArchive(response.data);
+        if (!response.data || response.data.length <= 0) setShowEmpty(true);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false)
     }
     getArchive();
   }, []);
@@ -41,7 +44,13 @@ export function ArchiveCharges({ type }: Parameters) {
       data-aos-anchor-placement='top-center'
       className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'
     >
-      <div className={`mt-20 ${showEmpty ? 'flex justify-center items-center flex-direction-column' : 'columns-2 md:columns-3 lg:columns-4'}`} >
+      <div
+        className={`mt-20 ${
+          showEmpty
+            ? 'flex justify-center items-center flex-direction-column'
+            : 'columns-2 md:columns-3 lg:columns-4'
+        }`}
+      >
         {loading && <SkeletonNotes />}
         {showEmpty && <Empty />}
         {!loading &&
