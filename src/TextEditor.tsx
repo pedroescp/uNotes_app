@@ -4,33 +4,25 @@ import Quill from 'quill';
 import { ArchiveIconQuill, Bookmark, TrashIconQuill } from './images/icons/icons';
 import api from './utils/api';
 var icons = Quill.import('ui/icons');
+
 icons['delete'] = TrashIconQuill();
 icons['archive'] = ArchiveIconQuill();
-//header of the lib
 
 interface Parameters {
   note: any;
 }
 
 const TextEditor = forwardRef(({ note }: Parameters, ref) => {
-  const [socket, setSocket] = useState();
   const [quill, setQuill] = useState();
 
   const inputTitleRef = createRef();
 
   const getInputTitleRef = () => inputTitleRef.current;
+  const archive = (note: any[]) => (note ? [{ delete: 'delete' }, { archive: 'archive' }] : []);
 
   // OPTIONS
   const TOOLBAR_OPTIONS = {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ font: [] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-      [{ color: [] }, { background: [] }],
-      [{ delete: 'delete' }],
-      [{ archive: 'archive' }],
-    ],
+    container: [['bold', 'italic', 'underline'], [{ list: 'check' }], archive(note)],
     handlers: {
       delete: () => {
         api.trashPost(note.id);
@@ -41,6 +33,9 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
       },
     },
   };
+
+  console.log(TOOLBAR_OPTIONS);
+
   //configure the lib and the wrapper the content in
   const wrapperRef = useCallback((wrapper: any) => {
     if (wrapper == null) return;
@@ -54,13 +49,9 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
       placeholder: 'Escrever uma nota',
     });
     if (note && note.texto) {
-      console.log(note.texto);
-      
-      const delta = convertHtmlToDelta(note.texto)
-      console.log(delta);
-      
-      q.setContents(delta)
-      
+      const delta = convertHtmlToDelta(note.texto);
+
+      q.setContents(delta);
     }
     setQuill(q);
   }, []);
@@ -81,7 +72,7 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
 
   const getValue = () => {
     if (quill) {
-      const delta =  convertDeltaToHtml((quill as Quill).getContents())
+      const delta = convertDeltaToHtml((quill as Quill).getContents());
       return {
         title: (getInputTitleRef() as any).value,
         text: delta,
