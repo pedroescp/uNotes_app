@@ -9,7 +9,7 @@ export function Empty() {
         src='src\images\lottiefiles\empty.json'
         style={{ height: '300px', width: '300px' }}
       ></Player>
-      <h1>Parece que por aqui esta vazio</h1>
+      <h1 className='select-none'>Parece que por aqui esta vazio</h1>
     </>
   );
 }
