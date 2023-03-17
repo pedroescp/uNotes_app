@@ -21,13 +21,15 @@ export function NotesCharges({ type }: Parameters) {
   useEffect(() => {
     async function getNotes() {
       //make a filter
-      const response = await api.notesGet();
-      setNotes(response.data);
-      if (response.data == '') {
-        setShowEmpty(true);
+      try {
+        const response = await api.notesGet();
+        setNotes(response.data);
+        if (!response.data || response.data.length <= 0) setShowEmpty(true);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     }
     getNotes();
   }, []);
@@ -48,19 +50,17 @@ export function NotesCharges({ type }: Parameters) {
 
     const newNotes = await api.notesGet();
     setNotes(newNotes.data);
-    if(newNotes.data == "") {
-      setShowEmpty(true);    
+    if (newNotes.data == '') {
+      setShowEmpty(true);
     }
-    
   };
 
   const handleOnNotesCreate = async () => {
     setOpen(false);
     const newNotes = await api.notesGet();
     setNotes(newNotes.data);
-    setShowEmpty(false);      
+    setShowEmpty(false);
   };
-
 
   return (
     <>
@@ -69,7 +69,13 @@ export function NotesCharges({ type }: Parameters) {
         data-aos-anchor-placement='top-center'
         className='mx-auto max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'
       >
-        <div className={`mt-20 ${showEmpty ? 'flex justify-center items-center flex-direction-column' : 'columns-2 md:columns-3 lg:columns-4'}`} >
+        <div
+          className={`mt-20 ${
+            showEmpty
+              ? 'flex justify-center items-center flex-direction-column'
+              : 'columns-2 md:columns-3 lg:columns-4'
+          }`}
+        >
           {loading && <SkeletonNotes />}
           {showEmpty && <Empty />}
           {!loading &&
