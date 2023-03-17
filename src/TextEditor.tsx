@@ -1,85 +1,28 @@
-import {
-  createRef,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import { createRef, forwardRef, useCallback, useImperativeHandle, useState } from 'react';
 import 'quill/dist/quill.snow.css';
 import Quill from 'quill';
-import { io } from 'socket.io-client';
 import { ArchiveIconQuill, Bookmark, TrashIconQuill } from './images/icons/icons';
 import api from './utils/api';
 var icons = Quill.import('ui/icons');
+
 icons['delete'] = TrashIconQuill();
 icons['archive'] = ArchiveIconQuill();
-//header of the lib
 
 interface Parameters {
   note: any;
 }
 
 const TextEditor = forwardRef(({ note }: Parameters, ref) => {
-  const [socket, setSocket] = useState();
   const [quill, setQuill] = useState();
 
   const inputTitleRef = createRef();
 
   const getInputTitleRef = () => inputTitleRef.current;
-
-  //receive the socket in another location and write in
-  /*   useEffect(() => {
-    if (socket == null || quill == null) return;
-
-    const handler = (delta: any) => {
-      quill.updateContents(delta);
-    };
-
-    socket.on('receive-changes', handler);
-
-    return () => {
-      socket.off('receive-changes', handler);
-    };
-  }, [socket, quill]);
-
-  //send request to socket
-  useEffect(() => {
-    if (socket == null || quill == null) return;
-
-    const handler = (delta: any, oldDelta: any, source: any) => {
-      if (source !== 'user') return;
-      socket.emit('send-changes', delta);
-    };
-
-    quill.on('text-change', handler);
-
-    return () => {
-      quill.off('text-change', handler);
-    };
-  }, [socket, quill]);
-
-  //the connection
-  useEffect(() => {
-    const s = io('wss://localhost:8080');
-    setSocket(s);
-
-    return () => {
-      s.disconnect();
-    };
-  }, []); */
+  const archive = (note: any[]) => (note ? [{ delete: 'delete' }, { archive: 'archive' }] : []);
 
   // OPTIONS
   const TOOLBAR_OPTIONS = {
-    container: [
-      /*       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      [{ font: [] }],
-      ['bold', 'italic', 'underline'],
-      [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-      [{ color: [] }, { background: [] }], */
-      [{ delete: 'delete' }],
-      [{ archive: 'archive' }],
-    ],
+    container: [['bold', 'italic', 'underline'], [{ list: 'check' }], archive(note)],
     handlers: {
       delete: () => {
         api.trashPost(note.id);
@@ -90,6 +33,8 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
       },
     },
   };
+
+
   //configure the lib and the wrapper the content in
   const wrapperRef = useCallback((wrapper: any) => {
     if (wrapper == null) return;
@@ -102,15 +47,34 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
       modules: { toolbar: TOOLBAR_OPTIONS },
       placeholder: 'Escrever uma nota',
     });
-    if (note && note.texto) q.setText(note?.texto);
+    if (note && note.texto) {
+      const delta = convertHtmlToDelta(note.texto);
+
+      q.setContents(delta);
+    }
     setQuill(q);
   }, []);
 
+  function convertHtmlToDelta(html) {
+    const tempEditor = new Quill(document.createElement('div'));
+    tempEditor.clipboard.dangerouslyPasteHTML(html);
+    const delta = tempEditor.getContents();
+    return delta;
+  }
+
+  function convertDeltaToHtml(delta) {
+    const tempEditor = new Quill(document.createElement('div'));
+    tempEditor.setContents(delta);
+    const html = tempEditor.root.innerHTML;
+    return html;
+  }
+
   const getValue = () => {
     if (quill) {
+      const delta = convertDeltaToHtml((quill as Quill).getContents());
       return {
         title: (getInputTitleRef() as any).value,
-        text: (quill as Quill).getText(),
+        text: delta,
       };
     }
 
