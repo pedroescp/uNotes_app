@@ -106,10 +106,6 @@ const api = {
     const result = await axios.get('usuario/obter-por-id', { headers });
     return result.data;
   },
-
-  getAllCategorias: async () => (await axios.get('categoria', { headers })).data,
-
-  addCartegoria: async (dado: any) => (await axios.post('categoria', dado, { headers })).data,
 };
 
 export default api;
