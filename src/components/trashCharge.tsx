@@ -68,10 +68,7 @@ export function TrashCharges({ type }: Parameters) {
                       {note.titulo}
                     </h2>
                     <span className='px-2'>
-                      <Bookmark
-                        key={note.bookmark}
-                        onClick={console.warn('PEDRO PARA DE COMMITAR COM CONSOLE.LOGKKKKKKK')}
-                      />
+                      <Bookmark key={note.bookmark} />
                     </span>
                   </div>
 
