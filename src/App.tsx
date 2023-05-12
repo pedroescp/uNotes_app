@@ -11,6 +11,7 @@ import Trash from './pages/trash';
 import { AuthProvider, AuthContext } from './contents/auth';
 import { useContext } from 'react';
 import Document from './pages/document';
+import EditDocumento from './pages/editDocument';
 
 function App() {
   const Private = ({ children }) => {
@@ -56,11 +57,18 @@ function App() {
           }
         />
         <Route
+          path='/document/:id'
+          element={
+            <Private>
+              <EditDocumento />
+            </Private>
+          }
+        />
+        <Route
           path='/profile'
           element={
             <Private>
-              {' '}
-              <Profile />{' '}
+              <Profile />
             </Private>
           }
         />
@@ -68,7 +76,7 @@ function App() {
           path='/trash'
           element={
             <Private>
-              <Trash />{' '}
+              <Trash />
             </Private>
           }
         />
@@ -76,7 +84,7 @@ function App() {
           path='/archive'
           element={
             <Private>
-              <Archive />{' '}
+              <Archive />
             </Private>
           }
         />
@@ -84,7 +92,7 @@ function App() {
           path='/group'
           element={
             <Private>
-              <Archive />{' '}
+              <Archive />
             </Private>
           }
         />
