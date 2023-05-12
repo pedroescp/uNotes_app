@@ -452,11 +452,11 @@ export default function Document() {
               key={categoria.id}
               onMouseEnter={() => handleMouseEnter(categoria.id)}
               onMouseLeave={handleMouseLeave}
-              className='collapse bg-base-100 rounded-box w-full min-h-[70px]'
+              className='collapse collapse-arrow bg-base-100 rounded-box w-full min-h-[70px]'
             >
               <input type='checkbox' className='!cursor-default' />
-              <div className='collapse-title text-xl font-medium flex gap-2 items-center justify-between pr-4'>
-                <div className='flex'>
+              <div className='collapse-title text-xl font-medium flex gap-2 items-center pr-4'>
+                <div className='flex gap-4'>
                   <p>{categoria.titulo}</p>
                   <div
                     className={`flex z-10 gap-1 transition-opacity 
@@ -482,7 +482,6 @@ export default function Document() {
                     </button>
                   </div>
                 </div>
-                <ChevronUPIcon />
               </div>
               <div className='collapse-content pl-2'>
                 {recursionTemplate(categorias, categoria.id)}
@@ -491,13 +490,22 @@ export default function Document() {
                     .filter((x: any) => x.categoriaId === categoria.id)
                     .map((documento: any) => (
                       <div
+                        key={documento.id}
                         onClick={() => abrirDocumento(documento.id)}
-                        className='rounded-md glass p-2 sm:p-4 h-fit cursor-default transition-all hover:brightness-125'
+                        className='rounded-md glass p-2 sm:p-4 h-fit cursor-default transition-all hover:brightness-125 break-words'
                       >
                         <h1 className='text-[#e0e0e0]'>
-                          <b>{documento.titulo}</b>
+                          <b>
+                            {documento.titulo.length > 20
+                              ? documento.titulo.slice(0, 20) + '...'
+                              : documento.titulo}
+                          </b>
                         </h1>
-                        <p className='break-words'>{documento.texto.slice(0, 20) || 'teste'}</p>
+                        <p>
+                          {documento.texto.length > 20
+                            ? documento.texto.slice(0, 20) + '...'
+                            : documento.texto}
+                        </p>
                       </div>
                     ))}
                 </div>
