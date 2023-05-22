@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import NavBar from '../components/navBar';
-import { Pencil, UserIcon } from '../images/icons/icons';
+import { Pencil, Plus } from '../images/icons/icons';
 import * as Yup from 'yup';
 import usuarioSerivce from '../utils/usuarioService';
 import categoriaService from '../utils/categoriasService';
@@ -10,10 +10,43 @@ import { useFormik } from 'formik';
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
+  const [openCateg, setOpenCateg] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState();
   const [usuario, setUsuario] = useState();
+  const [titulo, setTitulo] = useState('Cadastro de');
   const [categorias, setCategorias] = useState([]);
+
+  const categForm = useFormik({
+    initialValues: {
+      id: '',
+      nome: '',
+    },
+    validationSchema: Yup.object({
+      id: Yup.string(),
+      nome: Yup.string()
+        .max(50, 'A categoria deve ter no máximo 50 caracteres.')
+        .required('Nome da categoria não informado.'),
+    }),
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        // Categoria pai: Quando for criar uma nova (Botão "+ Nova Categoria") deve ser igual a 0.
+        // Quando for a partir de um filho, Categoria Pai: ID da categoria selecionada.
+        const data = { id: values.id, Titulo: values.nome, CategoriaPai: null };
+        await addCategoria(data);
+        setOpenCateg(false);
+        getCategoria();
+      } catch (error: any) {
+        console.error(error);
+        setErrors(error.response.data.errors[0]);
+      } finally {
+        categForm.resetForm();
+        setLoading(false);
+        setTitulo('Cadastro');
+      }
+    },
+  });
 
   const usuarioForm = useFormik({
     initialValues: {
@@ -69,6 +102,105 @@ const Profile = () => {
   async function getCategoria() {
     const response = await categoriaService.getAllCategorias();
     setCategorias(response.data);
+  }
+
+  async function addCategoria(data: any) {
+    return (await data.id)
+      ? categoriaService.updateCategoria(data)
+      : categoriaService.addCategoria(data);
+  }
+
+  /* Não usado ainda */
+  async function editCategoria(categ: any) {
+    setOpenCateg(true);
+    setTitulo('Editar');
+    categForm.setFieldValue('id', categ.id);
+    categForm.setFieldValue('nome', categ.titulo);
+  }
+
+  function ModalCadastroCategoria() {
+    const cancelButtonRef = useRef(null);
+    const closeModal = () => {
+      setOpenCateg(false);
+    };
+
+    return (
+      <Transition.Root show={openCateg} as={Fragment}>
+        <Dialog
+          as='div'
+          className='relative z-10'
+          initialFocus={cancelButtonRef}
+          onClose={closeModal}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter='ease-out duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
+          >
+            <div className='fixed inset-0 bg-black bg-opacity-50 transition-opacity' />
+          </Transition.Child>
+
+          <div className='fixed h-fit m-auto flex inset-0 z-10 overflow-y-auto px-4'>
+            <div className='grid place-items-center w-full'>
+              <Transition.Child
+                as={Fragment}
+                enter='ease-out duration-300'
+                enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                enterTo='opacity-100 translate-y-0 sm:scale-100'
+                leave='ease-in duration-200'
+                leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+                leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+              >
+                <Dialog.Panel className='p-4 w-full rounded-lg bg-slate-700 shadow-xl transition-all sm:w-full max-w-lg h-full'>
+                  <form onSubmit={categForm.handleSubmit}>
+                    <h3 className='text-lg font-bold pb-2'>{titulo} Categoria</h3>
+                    <div className='flex flex-col gap-4'>
+                      <div className='form-control w-full'>
+                        <label htmlFor='nome' className='label'>
+                          <span className='label-text'>Nome</span>
+                        </label>
+                        <input
+                          id='nome'
+                          name='nome'
+                          type='text'
+                          placeholder='Nome'
+                          className='input input-bordered w-full'
+                          onChange={categForm.handleChange}
+                          value={categForm.values.nome}
+                        />
+                        {(categForm.touched.nome && categForm.errors.nome) || errors ? (
+                          <label className='label pb-0 pt-2 pr-0'>
+                            <span className='label-text-alt text-error'>
+                              {categForm.errors.nome || errors}
+                            </span>
+                          </label>
+                        ) : null}
+                      </div>
+
+                      <div className='flex justify-between gap-2'>
+                        <button type='button' onClick={closeModal} className='btn gap-2 btn-ghost'>
+                          Cancelar
+                        </button>
+                        <LoadingButton
+                          msg='Salvar'
+                          loading={loading}
+                          loadingMsg='Salvando'
+                          small={true}
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
+    );
   }
 
   function ModalEdicaoPerfil() {
@@ -228,53 +360,6 @@ const Profile = () => {
     );
   }
 
-  function ModalEdicaoPerfasdasdil() {
-    return (
-      <>
-        <input type='checkbox' id='modalEdicaoPerfil' className='modal-toggle' />
-        <label htmlFor='modalEdicaoPerfil' className='modal cursor-pointer'>
-          <label className='modal-box relative' htmlFor=''>
-            <div className='grid place-itens-start'>
-              <div className="bg-[url('https://placeimg.com/192/192/people')] w-full h-48 shadow-x1 rounded-full">
-                <figure className='px-10 pt-40 bg-none'></figure>
-              </div>
-            </div>
-            <label htmlFor=''>
-              Nome: <br />
-              <input
-                type='text'
-                placeholder='Type here'
-                className='input input-bordered input-md w-full max-w-xs'
-              />
-            </label>
-            <br />
-            <label htmlFor=''>Categoria:</label>
-            <div className='card w-16 '>
-              <div className='card-body items-center text-center'>
-                <input type='checkbox' name='categorias' id='categorias' />
-                <ul>
-                  {categorias.map((categoria: any) => (
-                    <li>{categoria.titulo}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className='p-2 flex'>
-              <div className='w-1/2'>
-                <label htmlFor='modalEdicaoPerfil' className='btn btn-outline btn-error'>
-                  Cancelar!
-                </label>
-              </div>
-              <div className='w-1/2 flex justify-end'>
-                <button className='btn btn-outline btn-success ml-6'>Salvar</button>
-              </div>
-            </div>
-          </label>
-        </label>
-      </>
-    );
-  }
-
   return (
     <>
       <NavBar>
@@ -295,40 +380,18 @@ const Profile = () => {
                 {(usuario as any)?.nome}
                 <Pencil />
               </label>
-              <ModalEdicaoPerfil />
             </div>
           </div>
           <hr />
           {/* Modal add categoria */}
           <div className='flex justify-center md:justify-between m-4'>
-            <h2> CATEGORIAS</h2>
-            <label htmlFor='my-modal-4' className=''>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 20 20'
-                fill='currentColor'
-                className='w-5 h-5'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z'
-                  clipRule='evenodd'
-                />
-              </svg>
-            </label>
-            <input type='checkbox' id='my-modal-4' className='modal-toggle' />
-            <label htmlFor='my-modal-4' className='modal cursor-pointer'>
-              <label className='modal-box relative' htmlFor=''>
-                <label htmlFor=''>
-                  Categoria: <br />
-                  <input
-                    type='text'
-                    placeholder='Type here'
-                    className='input input-bordered input-md w-full max-w-xs'
-                  />
-                </label>
-              </label>
-            </label>
+            <h2>CATEGORIAS</h2>
+            <button
+              className='grid place-items-center rounded-lg w-8 h-8 transition-colors hover:bg-white hover:bg-opacity-10'
+              onClick={() => setOpenCateg(true)}
+            >
+              <Plus />
+            </button>
           </div>
           {/* Div Categorias */}
           <div className='card w-auto bg-neutral text-neutral-content'>
@@ -341,26 +404,8 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className='container justify-center items-center'>
-                    <div className='card w-96 bg-base-100 shadow-xl'>
-                        <figure className='px-10 pt-10'>
-                            <div className='avatar online'>
-                                <div className='w-24 rounded-full'>
-                                    <img src='https://placeimg.com/192/192/people' />
-                                </div>
-                            </div>
-                        </figure>
-                        <div className='card-body items-center text-center'>
-                            <h2 className='card-title'>
-                                Hello {(usuarios['nome'])}
-                            </h2> 
-                            <p>Nickname: {(usuarios['login'])}</p>
-                            <p>E-mail: {(usuarios['email'])}</p>
-                            <p> Telefone: {(usuarios['telefone'])}</p>
-                        </div>
-                    </div>
-                </div> */}
+        <ModalEdicaoPerfil />
+        <ModalCadastroCategoria />
       </NavBar>
     </>
   );
