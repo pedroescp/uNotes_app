@@ -9,6 +9,11 @@ const usuarioSerivce = {
     const result = await axios.get('usuario/obter-por-id', { headers });
     return result.data;
   },
+
+  atualizarUsuarioLogado: async (data: any) => {
+    const result = await axios.put('usuario', data, { headers });
+    return result.data;
+  },
 };
 
 export default usuarioSerivce;

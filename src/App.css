@@ -249,3 +249,7 @@
 .flex-direction-column{
   flex-direction: column;
 }
+
+.dialog-perfil::backdrop {
+  background-color: #00000080;
+}
