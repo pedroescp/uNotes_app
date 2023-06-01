@@ -250,6 +250,11 @@
   flex-direction: column;
 }
 
+.tooltip-size::before {
+  max-width: 220px;
+  word-break: break-all;
+}
+
 .dialog-perfil::backdrop {
   background-color: #00000080;
 }
