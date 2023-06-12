@@ -370,7 +370,7 @@ const Profile = () => {
           <div className='flex justify-center md:justify-between'>
             <div className='avatar items-center'>
               <div className='w-32 mask mask-hexagon m-2'>
-                <img src='https://placeimg.com/192/192/people' />
+                <img src={(usuario as any)?.avatar} />
               </div>
               <label onClick={() => openModal()} className='flex gap-2 p-1 text-2xl items-center'>
                 {(usuario as any)?.nome}

@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { Dialog, Transition } from '@headlessui/react';
 import categoriaService from '../utils/categoriasService';
 import documentoService from '../utils/documentosService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Document() {
   const [open, setOpen] = useState(false);
