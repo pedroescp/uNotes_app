@@ -21,8 +21,15 @@ const documentoService = {
     return result.data;
   },
 
+  obterDocumentoPorID: async (id: string) => {
+    const result = await axios.get(`documentos/obter-por-id?id=${id}`, {
+      headers,
+    });
+    return result.data;
+  },
+
   // TODO: Back-end faltando
-  // deleteCategoria: async (categoriaId: number) => {
+  // deleteDocumento: async (categoriaId: number) => {
   //   const res = await axios.delete(`documentos?notaId=${categoriaId}`, { headers });
   //   return res.data;
   // },

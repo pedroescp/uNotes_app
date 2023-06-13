@@ -3,6 +3,7 @@ import 'quill/dist/quill.snow.css';
 import Quill from 'quill';
 import { ArchiveIconQuill, Bookmark, TrashIconQuill } from './images/icons/icons';
 import api from './utils/api';
+import './styles/estiloNotas.css';
 var icons = Quill.import('ui/icons');
 
 icons['delete'] = TrashIconQuill();
@@ -34,7 +35,6 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
     },
   };
 
-
   //configure the lib and the wrapper the content in
   const wrapperRef = useCallback((wrapper: any) => {
     if (wrapper == null) return;
@@ -47,11 +47,7 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
       modules: { toolbar: TOOLBAR_OPTIONS },
       placeholder: 'Escrever uma nota',
     });
-    if (note && note.texto) {
-      const delta = convertHtmlToDelta(note.texto);
-
-      q.setContents(delta);
-    }
+    if (note && note.texto) q.setText(note?.texto);
     setQuill(q);
   }, []);
 
@@ -74,7 +70,7 @@ const TextEditor = forwardRef(({ note }: Parameters, ref) => {
       const delta = convertDeltaToHtml((quill as Quill).getContents());
       return {
         title: (getInputTitleRef() as any).value,
-        text: delta,
+        text: (quill as Quill).getText(),
       };
     }
 
