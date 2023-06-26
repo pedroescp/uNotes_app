@@ -24,16 +24,13 @@ expo start
 ```
 Após isso deve apertar iniciar Android (clicando 'A' no terminal) caso o celular estiver conectado no dispositivo ou poderá escanear o QR-Code no terminal.
 
+## Instalando projeto WEB
 
-
-## How Install app web
-
-To install this project use npm 
+Para instalar o projecto web devera rodar npm no terminal do projeto
 ```md
 npm install
 ```
-
-and next this use for running 
+e para rodar o projeto devera rodar isto toda vez que quiser utilizar.
 ```md 
 npm run dev
 ```
