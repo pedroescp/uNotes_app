@@ -1,6 +1,32 @@
+
 # uNotes
 
-## Table of contents
+A ideia principal do projeto eh criar um aplicativo de anotações onde o usuário consegue utilizar em diversos lugares e diversos aparelhos, para anotar e documentar o processo e projetos dentro do sistema, de uma forma simples e intuitiva. Desenvolvemos [mockups](https://excalidraw.com/#room=a210599ca5fc39d70ae0,_U3uzIsf_oYMku63BmLHaw) para temos uma base a onde gostaríamos de chegar e como ficariam as telas.
+
+
+## Documentacao do trabalho
+
+O trabalho desenvolvido dentro das normas ABNT esta documentado juntamente com os criadores dele [clique](https://docs.google.com/document/d/1mAFMUh-ekbyJ_-v7UxehUpTYLjYbkZGX/edit?pli=1) aqui para acessar. 
+
+## API
+O projeto da API foi desenvolvida toda em C# utilizando ele com postgresql e bibliotecas [clique](https://github.com/pedroescp/uNote_api) aqui para acessar.
+
+## Mobile
+O projeto mobile foi desenvolvido do zero usando React-native com várias bibliotecas [clique](https://github.com/pedroescp/uNotes_react_native) aqui para acessar.
+
+Para conseguir instalar o mobile tera que fazer o download do Expo em seu dispositivo e estar na mesma rede do que seu computador. Caso o dispositivo seja Android e gostaria de rodar utilizando cabo, deveras abrir a aba desenvolvedor no mobile e habilitar o USB-Debugging, ao abrir o projeto devera rodar 
+```md
+npm install
+```
+ para executar o código devera executar o seguinte comando
+ ```md
+expo start
+```
+Após isso deve apertar iniciar Android (clicando 'A' no terminal) caso o celular estiver conectado no dispositivo ou poderá escanear o QR-Code no terminal.
+
+
+
+## How Install app web
 
 To install this project use npm 
 ```md
@@ -11,39 +37,5 @@ and next this use for running
 ```md 
 npm run dev
 ```
-
-For use this project need another project API of [Untoes](https://github.com/pedroescp/uNote_api) here you can git clone the project and running.
-
-finnaly the database, this project use the database [PostgreSQL](https://www.postgresql.org/) 
-
-we use the [Quiljs](https://quilljs.com/) for make and format the notes into app
-
-
-**Front:**
- - Telas:
-   - Login
-   - Listagem de Notas
-     1. As notas fixadas ficam no topo, separadas das demais notas
-     2. Ao clicar na Nota, abrir a mesma em modal 
-     3. A tela deve conter espaço para digitar texto
-     4. Na parte inferior deve-se ter as configurações de (Quillsjs), deletar nota, trocar entre modo texto e lista
-     5. Na parte superior deve-se ter o título e o botão para fixar ou desfixar a nota
-     6. Menu lateral: [Ícone] Lixeira...
-   - Listagem de Documentos
-     1. Documentos fixados ficam separados dos demais
-     2. Ao clicar no Documento, abrir o mesmo na tela
-     3. A tela deve conter espaço para digitar texto
-     4. Na parte superior deve-se ter o título do documento (Padrão: `Documento sem nome`), as configurações de texto (Quilljs), salvar e deletar arquivo, exportar (PDF, DOCX), botão para compartilhar, opções de anexar notas ao arquivo
-
-
-
-
-
-
-
-
-IDEIAS:
-Ao registrar, aparecer uma mensagem pedindo para o usuário informar mais dados sobre ele -> Avatar, nickname preferido, e-mail, telefone, cargo, etc.
-Se o usuário logar e não tiver essas informações, fazer essa mensagem aparecer novamente
 
 
