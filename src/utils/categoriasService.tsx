@@ -22,7 +22,7 @@ const categoriaService = {
   },
 
   deleteCategoria: async (categoriaId: number) => {
-    const res = await axios.delete(`categoria?notaId=${categoriaId}`, { headers });
+    const res = await axios.delete(`categoria?categoriaId=${categoriaId}`, { headers });
     return res.data;
   },
 };

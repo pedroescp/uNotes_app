@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import useWindowDimensions from '../hooks/useWindowDimensions';
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import documentoService from '../utils/documentosService';
-import { ArrowBack, LogoutIcon, UserIcon } from '../images/icons/icons';
+import { ArrowBack, LoadingIcon, LogoutIcon, TrashIcon, UserIcon } from '../images/icons/icons';
 import { ExitSiteMesssage } from '../components/exitSite';
 import Editor, { EditorOptions } from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -21,12 +21,20 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import api from '../utils/api';
+import usuarioSerivce from '../utils/usuarioService';
+import { einstein } from '../images/base64/profileMokup';
+import { Transition, Dialog } from '@headlessui/react';
+//import '../styles/toastUI.css';
 
 export default function EditDocumento() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { height, width } = useWindowDimensions();
   const [loading, setLoading] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [usuario, setUsuario] = useState();
+  const [showEmpty, setShowEmpty] = useState(false);
   const editorRef = useRef<Editor | null>(null);
   const [documento, setDocumento] = useState({
     id: '',
@@ -38,7 +46,40 @@ export default function EditDocumento() {
 
   useEffect(() => {
     getID();
+    getNotes();
+    getUsuario();
   }, []);
+
+  async function getUsuario() {
+    const response = await usuarioSerivce.getUsuarioLogado();
+    if (!response.data?.avatar) {
+      response.data.avatar = einstein();
+    }
+    setUsuario(response.data);
+  }
+
+  async function getNotes() {
+    try {
+      const res = await api.notesGet();
+      setNotes(res.data);
+
+      if (!res.data || res.data.length <= 0) setShowEmpty(true);
+    } catch (error) {
+      console.error(error);
+      toast.error('Erro ao buscar notas relacionadas ao documento', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function getID() {
     if (!id) {
@@ -51,7 +92,7 @@ export default function EditDocumento() {
       setDocumento(res.data);
     } catch (error) {
       console.error(error);
-      toast.error('Erro ao carregar a nota', {
+      toast.error('Erro ao carregar a documento', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -72,6 +113,11 @@ export default function EditDocumento() {
     }
     const res = await atualizarNota();
     if (res) navigate(`/document`);
+  }
+
+  async function redirectToNotes() {
+    await atualizarNota();
+    navigate(`/note`);
   }
 
   async function atualizarNota() {
@@ -127,7 +173,8 @@ export default function EditDocumento() {
   }
 
   function DesktopVersion() {
-    const [activeButton, setActiveButton] = useState('Arquivos');
+    const [activeButton, setActiveButton] = useState('Notas');
+    const [showModalDeletar, setShowModalDeletar] = useState(false);
     const optionsRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
 
@@ -149,6 +196,19 @@ export default function EditDocumento() {
     }, []);
 
     const handleClick = (buttonName: string) => {
+      if (buttonName === 'Arquivos') {
+        toast.info('Arquivos ainda está em desenvolvimento', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+        return;
+      }
       setActiveButton(buttonName);
     };
 
@@ -197,11 +257,101 @@ export default function EditDocumento() {
       }
     };
 
+    function ModalDeletarDocumento() {
+      const cancelButtonRef = useRef(null);
+      const closeModal = () => {
+        setShowModalDeletar(false);
+      };
+
+      const deleteDocument = async () => {
+        try {
+          setLoading(true);
+          //await documentoService.deleteDocumento(id as string);
+          setLoading(false);
+          voltar();
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+          setShowModalDeletar(false);
+        }
+      };
+
+      return (
+        <Transition.Root show={showModalDeletar} as={Fragment}>
+          <Dialog
+            as='div'
+            className='relative z-10'
+            initialFocus={cancelButtonRef}
+            onClose={closeModal}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter='ease-out duration-300'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='ease-in duration-200'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='fixed inset-0 bg-black bg-opacity-50 transition-opacity' />
+            </Transition.Child>
+
+            <div className='fixed h-fit m-auto flex inset-0 z-10 overflow-y-auto px-4'>
+              <div className='grid place-items-center w-full'>
+                <Transition.Child
+                  as={Fragment}
+                  enter='ease-out duration-300'
+                  enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                  enterTo='opacity-100 translate-y-0 sm:scale-100'
+                  leave='ease-in duration-200'
+                  leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+                  leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                >
+                  <Dialog.Panel className='p-4 w-96 rounded-lg bg-slate-700 shadow-xl transition-all h-full'>
+                    <h3 className='text-lg font-bold pb-2'>Deseja excluir esse documento?</h3>
+                    <p className='text-sm text-error pb-4'>
+                      <b>Atenção: </b>
+                      Essa ação não poderá ser revertida!
+                    </p>
+                    <div className='flex justify-between gap-2'>
+                      <button type='button' onClick={closeModal} className='btn gap-2 btn-ghost'>
+                        Cancelar
+                      </button>
+                      <button
+                        onClick={() => deleteDocument()}
+                        disabled={loading}
+                        type='submit'
+                        className='btn btn-error'
+                      >
+                        {loading ? (
+                          <>
+                            <LoadingIcon />
+                            Excluindo
+                          </>
+                        ) : (
+                          <>Exluir</>
+                        )}
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition.Root>
+      );
+    }
+
     return (
       <>
         <div className='navbar bg-base-100'>
           <div className='navbar-start gap-2'>
-            <a onClick={() => voltar()} className='btn btn-ghost normal-case text-lg gap-4'>
+            <a
+              data-tip='Salvar e voltar'
+              onClick={() => voltar()}
+              className='flex btn btn-ghost normal-case text-lg gap-4 tooltip tooltip-right tooltip-index'
+            >
               <ArrowBack />
             </a>
             <span
@@ -244,11 +394,17 @@ export default function EditDocumento() {
               </button>
             </div>
           </div>
-          <div className='navbar-end'>
+          <div className='navbar-end gap-4'>
+            <label
+              onClick={() => setShowModalDeletar(true)}
+              className='btn btn-ghost btn-circle avatar'
+            >
+              <TrashIcon />
+            </label>
             <div className='dropdown dropdown-end'>
               <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
                 <div className='w-10 rounded-full'>
-                  <img src='https://cdn.discordapp.com/attachments/1097473495425884200/1106562995062055053/einstein.png' />
+                  <img src={(usuario as any)?.avatar} />
                 </div>
               </label>
               <ul
@@ -273,24 +429,38 @@ export default function EditDocumento() {
         </div>
 
         <div className='flex h-[calc(100%_-_66.6px)]'>
-          <div className='menu-lateral bg-base-200 p-4 flex flex-col gap-4'>
+          <div className='min-w-[300px] bg-base-200 p-4 flex flex-col gap-4'>
             <div className='btn-group'>
               <button
-                className={`btn ${activeButton === 'Arquivos' ? 'btn-active' : ''} w-32`}
+                className={`btn ${activeButton === 'Arquivos' ? 'btn-active' : ''} w-1/2`}
                 onClick={() => handleClick('Arquivos')}
               >
                 Arquivos
               </button>
               <button
-                className={`btn ${activeButton === 'Notas' ? 'btn-active' : ''} w-32`}
+                className={`btn ${activeButton === 'Notas' ? 'btn-active' : ''} w-1/2`}
                 onClick={() => handleClick('Notas')}
               >
                 Notas
               </button>
             </div>
 
-            <div className='pt-4'>
-              <div className='card'>teste</div>
+            <div className='grid gap-2 overflow-x-auto'>
+              {showEmpty && (
+                <div className='text-center text-balance'>
+                  <p>Parece que você ainda não criou notas...</p>
+                  <a onClick={() => redirectToNotes()} className='text-sm link text-secondary'>
+                    Clique aqui para criar uma nota!
+                  </a>
+                </div>
+              )}
+              {!showEmpty &&
+                notes.map((note: any) => (
+                  <div className='card-glass p-2'>
+                    <h1>{note.titulo}</h1>
+                    <p>{note.texto}</p>
+                  </div>
+                ))}
             </div>
           </div>
           <div className='flex justify-center p-4 w-full'>
@@ -300,6 +470,7 @@ export default function EditDocumento() {
         </div>
 
         <ExitSiteMesssage htmlFor='logout' />
+        <ModalDeletarDocumento />
       </>
     );
   }

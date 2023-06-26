@@ -28,11 +28,10 @@ const documentoService = {
     return result.data;
   },
 
-  // TODO: Back-end faltando
-  // deleteDocumento: async (categoriaId: number) => {
-  //   const res = await axios.delete(`documentos?notaId=${categoriaId}`, { headers });
-  //   return res.data;
-  // },
+  deleteDocumento: async (documentoId: string) => {
+    const res = await axios.delete(`documentos?notaId=${documentoId}`, { headers });
+    return res.data;
+  },
 };
 
 export default documentoService;
