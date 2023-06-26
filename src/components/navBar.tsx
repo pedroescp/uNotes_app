@@ -260,7 +260,7 @@ const NavBar = ({ children }: Props) => {
       <div className='drawer'>
         <input id='menu-lateral' type='checkbox' className='drawer-toggle' />
 
-        <div className='drawer-content flex flex-col p-4 items-center'>
+        <div className='drawer-content flex flex-col pt-4 items-center'>
           {SearchComponent()}
           {/* Conteúdo da página */ children}
         </div>

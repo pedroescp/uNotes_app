@@ -23,3 +23,7 @@
 .dialog-perfil::backdrop {
   background-color: #00000080;
 }
+
+.tooltip-index::before {
+  z-index: 9999;
+}

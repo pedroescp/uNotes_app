@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import NavBar from '../components/navBar';
-import { ChevronUPIcon, LoadingIcon, Pencil, Plus, TrashIcon } from '../images/icons/icons';
+import { LoadingIcon, Pencil, Plus, TrashIcon } from '../images/icons/icons';
 import { Empty } from '../components/Empty';
 import { LoadingButton } from '../components/loadingButton';
 import { useFormik } from 'formik';
@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { Dialog, Transition } from '@headlessui/react';
 import categoriaService from '../utils/categoriasService';
 import documentoService from '../utils/documentosService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Document() {
   const [open, setOpen] = useState(false);
@@ -86,6 +86,15 @@ export default function Document() {
   useEffect(() => {
     buscarCategorias();
     buscarDocumentos();
+    setTimeout(() => {
+      const container = document.getElementById('container');
+      if (!container) {
+        return;
+      }
+
+      container.style.height = 'auto';
+      container.style.setProperty('height', 'auto', 'important');
+    }, 100);
   }, []);
 
   async function buscarCategorias() {
@@ -163,7 +172,8 @@ export default function Document() {
                   ${categoria.id === hoveredIndex ? 'opacity-100' : 'opacity-0'}`}
                 >
                   <button
-                    className='grid place-items-center rounded-lg w-8 h-8 bg-teal-600 bg-opacity-80'
+                    data-tip='Adicionar categoria'
+                    className='grid place-items-center rounded-lg w-8 h-8 bg-teal-600 bg-opacity-80 tooltip'
                     onClick={() => createDocument(categoria.id)}
                   >
                     <Plus customWidth='5' />
@@ -431,10 +441,13 @@ export default function Document() {
 
   return (
     <NavBar>
-      <div className='mt-20 grid place-items-center w-full gap-4 container flex-direction-column transition-all'>
+      <div
+        id='container'
+        className='grid place-items-center w-full gap-4 container flex-direction-column transition-all'
+      >
         <button
           onClick={() => novaCategoria()}
-          className='btn bg-base-300 alert shadow-lg max-w-xs content-center'
+          className='btn bg-base-300 alert shadow-lg max-w-xs content-center mt-20'
         >
           <div className='text-info'>
             <Plus />
@@ -452,7 +465,7 @@ export default function Document() {
               key={categoria.id}
               onMouseEnter={() => handleMouseEnter(categoria.id)}
               onMouseLeave={handleMouseLeave}
-              className='collapse collapse-arrow bg-base-100 rounded-box w-full min-h-[70px]'
+              className='collapse collapse-arrow bg-base-100 w-full rounded-box'
             >
               <input type='checkbox' className='!cursor-default' />
               <div className='collapse-title text-xl font-medium flex gap-2 items-center pr-4'>
@@ -463,19 +476,22 @@ export default function Document() {
                     ${categoria.id === hoveredIndex ? 'opacity-100' : 'opacity-0'}`}
                   >
                     <button
-                      className='grid place-items-center rounded-lg w-8 h-8 transition-colors hover:bg-white hover:bg-opacity-10'
+                      data-tip='Adicionar categoria'
+                      className='grid place-items-center rounded-lg w-8 h-8 transition-colors hover:bg-white hover:bg-opacity-10 tooltip tooltip-right tooltip-index'
                       onClick={() => createDocument(categoria.id)}
                     >
                       <Plus customWidth='5' />
                     </button>
                     <button
-                      className='grid place-items-center rounded-lg w-8 h-8 transition-colors hover:bg-white hover:bg-opacity-10'
+                      data-tip='Editar categoria'
+                      className='grid place-items-center rounded-lg w-8 h-8 transition-colors hover:bg-white hover:bg-opacity-10 tooltip tooltip-right tooltip-index'
                       onClick={() => editCategoria(categoria)}
                     >
                       <Pencil customWidth='5' />
                     </button>
                     <button
-                      className='grid place-items-center rounded-lg w-8 h-8 transition-colors hover:bg-white hover:bg-opacity-10'
+                      data-tip='Excluir categoria'
+                      className='grid place-items-center rounded-lg w-8 h-8 transition-colors hover:bg-white hover:bg-opacity-10 tooltip tooltip-right tooltip-index'
                       onClick={() => setIsDeletingCategoriaId(categoria.id)}
                     >
                       <TrashIcon customWidth='5' />

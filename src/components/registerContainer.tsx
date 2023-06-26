@@ -68,7 +68,11 @@ export function RegisterContainer(props: props) {
           }
         })
         .catch((err) => {
+          console.error(err);
           setErrors(err.response.data.errors[0]);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     },
   });
